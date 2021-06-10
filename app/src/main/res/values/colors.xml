@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="blue">#1A133E</color>
+    <color name="purple_500">#1A133E</color>
+    <color name="purple_700">#1A133E</color>
+    <color name="backgroud">#332679</color>
+    <color name="transparent">#00000000</color>
+    //todays cardview
+    <color name="russian_blue">#1B143F</color>
+    <color name="picotee_blue">#2D226A</color>
+    //hourly cardview
+    <color name="ocean_blue">#5B3DB4</color>
+    <color name="picotee_light_blue">#3C238D</color>
+    //current hour
+    <color name="mauve">#E7BCFF</color>
+    //subtitle
+    <color name="middle_blue_purple">#8075AC</color>
+    <color name="ghost_white">#F9F6FD</color>
+    //title
+    <color name="white">#FFFEFF</color>
+    <color name="green_shreen">#6D7FBEAB</color>
+
+
+</resources>
