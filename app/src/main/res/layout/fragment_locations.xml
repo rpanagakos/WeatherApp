@@ -5,6 +5,12 @@
 
     <data>
 
+        <import type="android.view.View" />
+
+        <variable
+            name="noLocations"
+            type="java.lang.Boolean" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -32,10 +38,10 @@
             android:layout_marginEnd="16dp"
             android:background="@null"
             android:hint="@string/enter_your_location"
-            android:singleLine="true"
             android:imeOptions="actionSearch"
             android:includeFontPadding="false"
             android:lineSpacingExtra="0dp"
+            android:singleLine="true"
             android:textColor="@color/white"
             android:textColorHint="@color/ghost_white"
             android:textSize="22sp"
@@ -59,46 +65,38 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/backButton"
-            app:layout_constraintBottom_toBottomOf="parent">
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView"
+            app:layout_constraintTop_toBottomOf="@id/backButton">
+
+            <com.todkars.shimmer.ShimmerRecyclerView
+                android:id="@+id/locationsRecycler"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="20dp"
-                android:visibility="visible"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <com.todkars.shimmer.ShimmerRecyclerView
-                    android:id="@+id/locationsRecycler"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:shimmer_recycler_item_count="1"
-                    tools:itemCount="1"
-                    app:shimmer_recycler_layout="@layout/placeholder_days_layout"
-                    tools:listitem="@layout/holder_location_item" />
-            </androidx.cardview.widget.CardView>
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:visibility="@{noLocations ?  View.GONE : View.VISIBLE}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shimmer_recycler_item_count="1"
+                app:shimmer_recycler_layout="@layout/placeholder_days_layout"
+                tools:itemCount="1"
+                tools:listitem="@layout/holder_location_item" />
 
             <TextView
                 android:id="@+id/newLocationText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Enter your location"
                 android:gravity="center"
-                android:textSize="22sp"
-                android:visibility="gone"
+                android:visibility="@{noLocations ?  View.VISIBLE : View.GONE}"
+                android:text="Enter your location"
                 android:textColor="@color/ghost_white"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                android:textSize="22sp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

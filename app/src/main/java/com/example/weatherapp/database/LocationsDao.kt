@@ -1,9 +1,7 @@
 package com.example.weatherapp.database
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface LocationsDao {
@@ -12,8 +10,11 @@ interface LocationsDao {
     suspend fun insertLocation(locationsEntity: LocationsEntity)
 
     @Query("SELECT * FROM locations_table ORDER BY id ASC")
-    suspend fun readLocations(): MutableList<LocationsEntity>
+    fun readLocations(): Flow<MutableList<LocationsEntity>>
 
     @Query("SELECT * FROM locations_table ORDER BY  id DESC LIMIT 1")
     suspend fun getLatestLocation(): LocationsEntity
+
+    @Delete
+    suspend fun deleteLocation(locationsEntity: LocationsEntity)
 }

@@ -1,31 +1,21 @@
 package com.example.weatherapp.ui.fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.weatherapp.R
+import com.example.weatherapp.abstraction.AbstractFragment
 import com.example.weatherapp.abstraction.Utils.setSafeOnClickListener
 import com.example.weatherapp.databinding.FragmentNextDaysBinding
-import com.example.weatherapp.ui.WeatherViewModel
 import com.example.weatherapp.ui.recyclerview.WeatherAdapter
 
-class NextDaysFragment : Fragment() {
+class NextDaysFragment : AbstractFragment() {
 
     lateinit var binding: FragmentNextDaysBinding
     private val adapter: WeatherAdapter = WeatherAdapter()
-
-    private lateinit var viewModel: WeatherViewModel
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        viewModel = ViewModelProvider(requireActivity()).get(WeatherViewModel::class.java)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,15 +26,7 @@ class NextDaysFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initView()
-
-        observeViewModel()
-    }
-
-    private fun initView() {
-
+    override fun initLayout() {
         viewModel.getNextWeek()
 
         binding.daysWeatherRecycler.adapter = adapter
@@ -54,7 +36,7 @@ class NextDaysFragment : Fragment() {
         }
     }
 
-    private fun observeViewModel() {
+    override fun observeViewModel() {
         viewModel.weatherNextWeek.observe(viewLifecycleOwner, Observer {
             when{
                 !it.weather.isNullOrEmpty() -> {
@@ -63,5 +45,8 @@ class NextDaysFragment : Fragment() {
             }
             binding.daysWeatherRecycler.hideShimmer()
         })
+    }
+
+    override fun stopOperations() {
     }
 }

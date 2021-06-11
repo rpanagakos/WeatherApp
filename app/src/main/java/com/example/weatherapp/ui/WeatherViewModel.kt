@@ -1,7 +1,9 @@
 package com.example.weatherapp.ui
 
 import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.weatherapp.abstraction.SingleLiveEvent
 import com.example.weatherapp.database.LocalDataSource
@@ -22,7 +24,7 @@ class WeatherViewModel @ViewModelInject constructor(
     val internetConnection = SingleLiveEvent<Boolean>()
     val weatherResponse = SingleLiveEvent<WeatherResponse>()
     val weatherNextWeek = SingleLiveEvent<WeatherResponse>()
-    val locations = SingleLiveEvent<MutableList<LocationsEntity>>()
+    val locations : LiveData<MutableList<LocationsEntity>> = localDataSource.readLocations().asLiveData()
 
     //Room database
 
@@ -36,6 +38,12 @@ class WeatherViewModel @ViewModelInject constructor(
             }.onFailure {
                 handleFailures(it)
             }
+        }
+    }
+
+    fun deleteLocation(locationsEntity: LocationsEntity){
+        viewModelScope.launch(Dispatchers.Default){
+            localDataSource.deleteLocation(locationsEntity)
         }
     }
 
@@ -53,7 +61,7 @@ class WeatherViewModel @ViewModelInject constructor(
         }
     }
 
-    fun getAllLocations(){
+    /*fun getAllLocations(){
         viewModelScope.launch(Dispatchers.Default){
             kotlin.runCatching {
                 localDataSource.readLocations()
@@ -63,7 +71,7 @@ class WeatherViewModel @ViewModelInject constructor(
                 handleFailures(it)
             }
         }
-    }
+    }*/
 
     //Api calls
     fun getCurrentWeather() {

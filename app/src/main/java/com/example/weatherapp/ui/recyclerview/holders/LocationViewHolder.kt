@@ -11,7 +11,6 @@ class LocationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun present(data: LocalModel, lastOne : Boolean) {
         when (data) {
             is LocationsEntity -> {
-                itemView.view.visibility = if (lastOne) View.GONE else View.VISIBLE
                 itemView.locationText.text = data.location.substringBefore(",")
                 itemView.countryText.text = data.location.substringAfter(", ")
             }

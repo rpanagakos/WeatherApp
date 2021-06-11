@@ -7,7 +7,7 @@ import com.example.weatherapp.abstraction.LocalModel
 import com.example.weatherapp.network.ConstantsApi.Companion.LOCATIONS_TABLE
 
 @Entity(tableName = LOCATIONS_TABLE, indices = [Index("location",name = "location", unique = true)])
-class LocationsEntity(
+data class LocationsEntity(
     var location: String
 ): LocalModel {
     override fun equalsContent(obj: LocalModel): Boolean = false
