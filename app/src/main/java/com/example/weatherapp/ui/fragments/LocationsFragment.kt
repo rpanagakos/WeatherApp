@@ -78,7 +78,6 @@ class LocationsFragment : AbstractFragment() {
     private fun navigateToLanding() {
         when {
             !binding.searchEditText.text.isNullOrEmpty() -> {
-                viewModel.insertLocation(binding.searchEditText.text.toString()){}
                 hideKeyboard()
                 findNavController().navigate(
                     LocationsFragmentDirections.actionLocationsFragmentToLandingFragment(
@@ -89,11 +88,12 @@ class LocationsFragment : AbstractFragment() {
         }
     }
 
-    private fun swipeToDelete(recyclerView: RecyclerView){
-        val swipeToDeleteCallBack = object : SwipeToDelete(){
+    private fun swipeToDelete(recyclerView: RecyclerView) {
+        val swipeToDeleteCallBack = object : SwipeToDelete() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val itemToDelete =  adapter.currentList[viewHolder.absoluteAdapterPosition] as LocationsEntity
-                viewModel.deleteLocation(itemToDelete )
+                val itemToDelete =
+                    adapter.currentList[viewHolder.absoluteAdapterPosition] as LocationsEntity
+                viewModel.deleteLocation(itemToDelete)
             }
 
         }

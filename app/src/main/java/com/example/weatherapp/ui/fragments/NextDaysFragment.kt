@@ -11,7 +11,9 @@ import com.example.weatherapp.abstraction.AbstractFragment
 import com.example.weatherapp.abstraction.Utils.setSafeOnClickListener
 import com.example.weatherapp.databinding.FragmentNextDaysBinding
 import com.example.weatherapp.ui.recyclerview.WeatherAdapter
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class NextDaysFragment : AbstractFragment() {
 
     lateinit var binding: FragmentNextDaysBinding
@@ -38,7 +40,7 @@ class NextDaysFragment : AbstractFragment() {
 
     override fun observeViewModel() {
         viewModel.weatherNextWeek.observe(viewLifecycleOwner, Observer {
-            when{
+            when {
                 !it.weather.isNullOrEmpty() -> {
                     adapter.submitList(it.weather.drop(1))
                 }
