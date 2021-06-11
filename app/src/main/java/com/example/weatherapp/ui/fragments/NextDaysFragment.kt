@@ -17,7 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class NextDaysFragment : AbstractFragment() {
 
     lateinit var binding: FragmentNextDaysBinding
-    private val adapter: WeatherAdapter = WeatherAdapter()
+    private val adapter: WeatherAdapter = WeatherAdapter(){}
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

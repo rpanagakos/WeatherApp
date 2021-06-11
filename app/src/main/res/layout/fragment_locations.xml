@@ -90,7 +90,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:visibility="@{noLocations ?  View.VISIBLE : View.GONE}"
-                android:text="Enter your location"
+                android:text="@string/enter_your_location_v2"
                 android:textColor="@color/ghost_white"
                 android:textSize="22sp"
                 app:layout_constraintBottom_toBottomOf="parent"

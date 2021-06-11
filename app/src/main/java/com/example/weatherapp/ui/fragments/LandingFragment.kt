@@ -19,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class LandingFragment : AbstractFragment() {
 
     lateinit var binding: FragmentLandingBinding
-    private val adapter: WeatherAdapter = WeatherAdapter()
+    private val adapter: WeatherAdapter = WeatherAdapter(){}
 
     private val args: LandingFragmentArgs by navArgs()
 

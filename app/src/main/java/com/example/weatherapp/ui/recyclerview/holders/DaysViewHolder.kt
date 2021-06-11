@@ -1,6 +1,5 @@
 package com.example.weatherapp.ui.recyclerview.holders
 
-import android.view.OrientationEventListener
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherapp.abstraction.LocalModel
@@ -11,7 +10,7 @@ import kotlinx.android.synthetic.main.holder_days_item.view.*
 
 class DaysViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    fun present(data: LocalModel, listener: OrientationEventListener? = null){
+    fun present(data: LocalModel, onClickElement:(selected : LocalModel) -> Unit){
         when(data){
             is Weather -> {
                 itemView.dayText.text = dateToDayNameEEEE(data.date)

@@ -25,7 +25,12 @@ import dagger.hilt.android.AndroidEntryPoint
 class LocationsFragment : AbstractFragment() {
 
     lateinit var binding: FragmentLocationsBinding
-    private val adapter: WeatherAdapter = WeatherAdapter()
+    private val adapter: WeatherAdapter = WeatherAdapter(){
+        (it as LocationsEntity).apply {
+            binding.searchEditText.setText(this.location)
+            navigateToLanding()
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
