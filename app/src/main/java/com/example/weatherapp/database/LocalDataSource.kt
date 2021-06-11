@@ -6,11 +6,15 @@ class LocalDataSource @Inject constructor(
     private val locationsDao: LocationsDao
 ) {
 
-    fun readLocations(): MutableList<LocationsEntity> {
+    suspend fun readLocations(): MutableList<LocationsEntity> {
        return locationsDao.readLocations()
     }
 
     suspend fun insertLocation(locationsEntity: LocationsEntity){
         locationsDao.insertLocation(locationsEntity)
+    }
+
+    suspend fun getLatestLocation(): LocationsEntity {
+        return locationsDao.getLatestLocation()
     }
 }

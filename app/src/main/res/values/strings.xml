@@ -5,6 +5,6 @@
     <string name="today">Today</string>
     <string name="next_week">Next week</string>
     <string name="next_7_days">Next 7 days</string>
-    <string name="enter_your_location">Enter your location</string>
+    <string name="enter_your_location">Search</string>
     <string name="welcome_n_to_our_weather_app">Welcome \n to our Weather App</string>
 </resources>

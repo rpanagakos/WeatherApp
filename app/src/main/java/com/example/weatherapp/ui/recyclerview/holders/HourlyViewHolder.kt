@@ -1,4 +1,4 @@
-package com.example.weatherapp.ui.recyclerview
+package com.example.weatherapp.ui.recyclerview.holders
 
 import android.os.Build
 import android.view.View

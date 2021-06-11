@@ -5,13 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.weatherapp.R
-import com.example.weatherapp.abstraction.Utils.hideKeyboard
 import com.example.weatherapp.abstraction.Utils.setSafeOnClickListener
 import com.example.weatherapp.databinding.FragmentLandingBinding
 import com.example.weatherapp.ui.WeatherViewModel
@@ -20,12 +18,13 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class LandingFragment : Fragment() {
+class LandingFragment : androidx.fragment.app.Fragment() {
 
     lateinit var binding: FragmentLandingBinding
     private val adapter: WeatherAdapter = WeatherAdapter()
 
     private lateinit var viewModel: WeatherViewModel
+    private val args : LandingFragmentArgs by navArgs()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -38,7 +37,6 @@ class LandingFragment : Fragment() {
     ): View {
         binding = FragmentLandingBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
-        binding.searchMode = true
         binding.generic = true
         return binding.root
     }
@@ -55,53 +53,34 @@ class LandingFragment : Fragment() {
             findNavController().navigate(R.id.action_landingFragment_to_nextDaysFragment)
         }
 
-        binding.searchButtom.setSafeOnClickListener {
-
-            when {
-                !binding.searchEditText.text.isNullOrEmpty() -> {
-                    //make the call to API
-                    viewModel.cityName = binding.searchEditText.text.toString()
-                    binding.searchEditText.setText("")
-                    viewModel.getCurrentWeather()
-                    hideKeyboard()
-                    binding.hourlyWeatherRecycler.visibility = View.VISIBLE
-                    binding.hourlyWeatherRecycler.showShimmer()
-                }
-                else -> {
-                    requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-                    binding.searchEditText.requestFocus()
-                    binding.searchMode = true
-                    binding.generic = false
-                }
-            }
-
+        binding.addButton.setSafeOnClickListener {
+            findNavController().navigate(R.id.action_landingFragment_to_locationsFragment)
         }
     }
 
     private fun observeViewModel() {
         viewModel.weatherResponse.observe(viewLifecycleOwner, Observer {
             binding.weather = it
-            when{
+            when {
                 !it.weather.isNullOrEmpty() -> {
-                    binding.searchMode = false
-                    binding.generic = false
+                    viewModel.insertLocation(it.request[0].query){}
                     adapter.submitList(it.weather[0].hourly)
                     binding.hourlyWeatherRecycler.hideShimmer()
                 }
             }
+        })
+        viewModel.latestLocation.observe(viewLifecycleOwner, Observer {
+            binding.hourlyWeatherRecycler.showShimmer()
+            binding.generic = false
+            viewModel.getCurrentWeather()
         })
     }
 
     override fun onResume() {
         super.onResume()
         when{
-            !viewModel.cityName.isNullOrEmpty() -> {
-                //make the call to API
-                viewModel.getCurrentWeather()
-                binding.searchMode = false
-                hideKeyboard()
-                binding.generic = false
-            }
+            !args.newLocation.equals("empty") -> viewModel.latestLocation.value = args.newLocation
+            else -> viewModel.getLatestLocation()
         }
     }
 

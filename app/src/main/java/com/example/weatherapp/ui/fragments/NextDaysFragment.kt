@@ -2,15 +2,13 @@ package com.example.weatherapp.ui.fragments
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.weatherapp.MainActivity
 import com.example.weatherapp.R
 import com.example.weatherapp.abstraction.Utils.setSafeOnClickListener
 import com.example.weatherapp.databinding.FragmentNextDaysBinding
@@ -40,8 +38,6 @@ class NextDaysFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.daysWeatherRecycler.layoutManager = LinearLayoutManager(requireContext())
-        binding.daysWeatherRecycler.showShimmer()
         initView()
 
         observeViewModel()
@@ -52,6 +48,7 @@ class NextDaysFragment : Fragment() {
         viewModel.getNextWeek()
 
         binding.daysWeatherRecycler.adapter = adapter
+        binding.daysWeatherRecycler.showShimmer()
         binding.backButton.setSafeOnClickListener {
             findNavController().navigate(R.id.action_nextDaysFragment_to_landingFragment)
         }

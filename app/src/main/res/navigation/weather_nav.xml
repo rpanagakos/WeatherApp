@@ -12,7 +12,24 @@
         tools:layout="@layout/fragment_landing" >
         <action
             android:id="@+id/action_landingFragment_to_nextDaysFragment"
-            app:destination="@id/nextDaysFragment" />
+            app:destination="@id/nextDaysFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+
+        <action
+            android:id="@+id/action_landingFragment_to_locationsFragment"
+            app:destination="@id/locationsFragment"
+            app:enterAnim="@anim/slide_in_top"
+            app:exitAnim="@anim/slide_out_bottom"
+            app:popEnterAnim="@anim/slide_in_bottom"
+            app:popExitAnim="@anim/slide_out_top"/>
+        <argument
+            android:name="newLocation"
+            android:defaultValue="empty"
+            app:argType="string" />
+
     </fragment>
     <fragment
         android:id="@+id/nextDaysFragment"
@@ -21,6 +38,22 @@
         tools:layout="@layout/fragment_next_days" >
         <action
             android:id="@+id/action_nextDaysFragment_to_landingFragment"
-            app:destination="@id/landingFragment" />
+            app:destination="@id/landingFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/landingFragment"
+            app:popUpToInclusive="true"
+            app:launchSingleTop="true"/>
+    </fragment>
+    <fragment
+        android:id="@+id/locationsFragment"
+        android:name="com.example.weatherapp.ui.fragments.LocationsFragment"
+        android:label="LocationsFragment"
+        tools:layout="@layout/fragment_locations">
+        <action
+            android:id="@+id/action_locationsFragment_to_landingFragment"
+            app:destination="@id/landingFragment"
+            app:enterAnim="@anim/slide_in_bottom"
+            app:exitAnim="@anim/slide_out_top"/>
     </fragment>
 </navigation>

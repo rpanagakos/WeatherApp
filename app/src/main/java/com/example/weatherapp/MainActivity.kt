@@ -1,11 +1,8 @@
 package com.example.weatherapp
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.weatherapp.abstraction.AbstractActivity
-import com.todkars.shimmer.ShimmerRecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

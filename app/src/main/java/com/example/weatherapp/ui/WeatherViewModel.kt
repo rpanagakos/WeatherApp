@@ -1,43 +1,55 @@
 package com.example.weatherapp.ui
 
-import android.app.Application
-import android.widget.Toast
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.*
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.weatherapp.abstraction.SingleLiveEvent
 import com.example.weatherapp.database.LocalDataSource
 import com.example.weatherapp.database.LocationsEntity
 import com.example.weatherapp.models.WeatherResponse
 import com.example.weatherapp.network.WeatherRemoteRepository
-import com.example.weatherapp.ui.recyclerview.WeatherAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
-import java.time.format.SignStyle
-import javax.inject.Inject
 
 class WeatherViewModel @ViewModelInject constructor(
     private val weatherRepository: WeatherRemoteRepository,
     private val localDataSource: LocalDataSource
 ) : ViewModel() {
 
-    var cityName: String? = null
-    val internetConnection = MutableLiveData<Boolean>()
+    val latestLocation = SingleLiveEvent<String>()
+    val internetConnection = SingleLiveEvent<Boolean>()
     val weatherResponse = SingleLiveEvent<WeatherResponse>()
     val weatherNextWeek = SingleLiveEvent<WeatherResponse>()
     val locations = SingleLiveEvent<MutableList<LocationsEntity>>()
 
-
     //Room database
-    fun offlineCache(location: String) {
+
+    fun insertLocation(location: String, added: (Boolean) -> Unit) {
         val locationsEntity = LocationsEntity(location)
-        insertLocation(locationsEntity)
+        viewModelScope.launch(Dispatchers.Default) {
+            kotlin.runCatching {
+                localDataSource.insertLocation(locationsEntity)
+            }.onSuccess {
+                added.invoke(true)
+            }.onFailure {
+                handleFailures(it)
+            }
+        }
     }
 
-    private fun insertLocation(locationsEntity: LocationsEntity) {
+    fun getLatestLocation(){
         viewModelScope.launch(Dispatchers.Default) {
-            localDataSource.insertLocation(locationsEntity)
+            kotlin.runCatching {
+                localDataSource.getLatestLocation()
+            }.onFailure {
+                handleFailures(it)
+            }.onSuccess {
+                it?.let {
+                    latestLocation.postValue( it.location)
+                }
+            }
         }
     }
 
@@ -53,11 +65,11 @@ class WeatherViewModel @ViewModelInject constructor(
         }
     }
 
-    //Retrofit calls
+    //Api calls
     fun getCurrentWeather() {
         viewModelScope.launch(Dispatchers.Default) {
             kotlin.runCatching {
-                cityName?.let { weatherRepository.getCurrentWeather(city = it) }
+                latestLocation.value?.let { weatherRepository.getCurrentWeather(city = it) }
             }.onFailure {
                 //Show error handling message
                 handleFailures(it)
@@ -86,7 +98,7 @@ class WeatherViewModel @ViewModelInject constructor(
     fun getNextWeek() {
         viewModelScope.launch(Dispatchers.Default) {
             kotlin.runCatching {
-                cityName?.let { weatherRepository.getNextWeek(city = it, numOfDays = "8") }
+                latestLocation.value?.let { weatherRepository.getNextWeek(city = it, numOfDays = "8") }
             }.onFailure {
                 //Show error handling message
                 handleFailures(it)

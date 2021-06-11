@@ -48,20 +48,21 @@
 
             <com.todkars.shimmer.ShimmerRecyclerView
                 android:id="@+id/daysWeatherRecycler"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:clipToPadding="false"
                 android:overScrollMode="never"
                 android:paddingBottom="24dp"
                 android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
                 android:scrollbars="none"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:shimmer_recycler_item_count="5"
+                app:shimmer_recycler_item_count="8"
+                tools:listitem="@layout/holder_days_item"
                 app:shimmer_recycler_layout="@layout/placeholder_days_layout"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/backButton"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/titleNextDays"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

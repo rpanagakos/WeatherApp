@@ -21,7 +21,9 @@ data class CurrentCondition(
     @SerializedName("weatherDesc")
     val weatherDesc: List<WeatherDesc>,
     @SerializedName("weatherIconUrl")
-    val weatherIconUrl: List<WeatherIconUrl>
+    val weatherIconUrl: List<WeatherIconUrl>,
+    @SerializedName("windspeedKmph")
+    val windspeedKmph : String
 ): LocalModel {
     override fun equalsContent(obj: LocalModel): Boolean = false
 }

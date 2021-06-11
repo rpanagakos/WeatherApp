@@ -8,8 +8,12 @@ import com.example.weatherapp.R
 import com.example.weatherapp.abstraction.DiffUtilClass
 import com.example.weatherapp.abstraction.EmptyHolder
 import com.example.weatherapp.abstraction.LocalModel
+import com.example.weatherapp.database.LocationsEntity
 import com.example.weatherapp.models.Hourly
 import com.example.weatherapp.models.Weather
+import com.example.weatherapp.ui.recyclerview.holders.DaysViewHolder
+import com.example.weatherapp.ui.recyclerview.holders.HourlyViewHolder
+import com.example.weatherapp.ui.recyclerview.holders.LocationViewHolder
 
 class WeatherAdapter() :
     ListAdapter<LocalModel, RecyclerView.ViewHolder>(DiffUtilClass<LocalModel>()) {
@@ -22,6 +26,9 @@ class WeatherAdapter() :
             R.layout.holder_hourly_weather_item -> HourlyViewHolder(
                 LayoutInflater.from(parent.context).inflate(viewType, parent, false)
             )
+            R.layout.holder_location_item -> LocationViewHolder(
+                LayoutInflater.from(parent.context).inflate(viewType, parent, false)
+            )
             else -> EmptyHolder(
                 LayoutInflater.from(parent.context).inflate(viewType, parent, false)
             )
@@ -30,12 +37,18 @@ class WeatherAdapter() :
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) = when (holder) {
         is DaysViewHolder -> holder.present(getItem(position))
         is HourlyViewHolder -> holder.present(getItem(position))
+        is LocationViewHolder -> holder.present(getItem(position), isLast(position, itemCount))
         else -> Unit
     }
 
     override fun getItemViewType(position: Int) = when (getItem(position)) {
         is Hourly -> R.layout.holder_hourly_weather_item
         is Weather -> R.layout.holder_days_item
+        is LocationsEntity -> R.layout.holder_location_item
         else -> R.layout.holder_days_item
+    }
+
+    private fun isLast(itemPosition: Int, items : Int): Boolean{
+        return itemPosition == items -1
     }
 }
