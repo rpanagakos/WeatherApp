@@ -49,7 +49,9 @@ class LandingFragment : AbstractFragment() {
             binding.weather = it
             when {
                 !it.weather.isNullOrEmpty() -> {
-                    viewModel.insertLocation(it.request[0].query) {}
+                    when{
+                        !args.newLocation.equals("empty") -> viewModel.insertLocation(it.request[0].query) {}
+                    }
                     adapter.submitList(it.weather[0].hourly)
                     binding.hourlyWeatherRecycler.hideShimmer()
                 }
@@ -77,6 +79,11 @@ class LandingFragment : AbstractFragment() {
             !args.newLocation.equals("empty") -> viewModel.latestLocation.value = args.newLocation
             else -> viewModel.getLatestLocation()
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        arguments?.clear()
     }
 
 }

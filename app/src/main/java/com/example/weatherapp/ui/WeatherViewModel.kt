@@ -24,8 +24,7 @@ class WeatherViewModel @ViewModelInject constructor(
     val internetConnection = SingleLiveEvent<Boolean>()
     val weatherResponse = SingleLiveEvent<WeatherResponse>()
     val weatherNextWeek = SingleLiveEvent<WeatherResponse>()
-    val locations: LiveData<MutableList<LocationsEntity>> =
-        localDataSource.readLocations().asLiveData()
+    val locations: LiveData<MutableList<LocationsEntity>> = localDataSource.readLocations().asLiveData()
     val dayDetails = SingleLiveEvent<WeatherResponse>()
 
     //Room database
