@@ -11,8 +11,8 @@ object WeatherBinding {
 
     @BindingAdapter(value = ["imageURLWeather"])
     @JvmStatic
-    fun CircleImageView.loadImageFromUrl(imageUrl: String?){
-        if (imageUrl != null){
+    fun CircleImageView.loadImageFromUrl(imageUrl: String?) {
+        if (imageUrl != null) {
             load(imageUrl) {
                 crossfade(600)
                 placeholder(R.drawable.ic_failed)
@@ -23,7 +23,7 @@ object WeatherBinding {
 
     @BindingAdapter(value = ["dateFormatWeather"])
     @JvmStatic
-    fun TextView.changeDateWeatherFormat(date: String?){
+    fun TextView.changeDateWeatherFormat(date: String?) {
         if (date != null)
             text = dateToFullDateName(date)
     }

@@ -56,6 +56,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/open_sans"
                     android:gravity="center"
                     android:text="@{weather.request[0].query}"
                     android:textColor="@color/white"
@@ -73,6 +74,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/open_sans"
                     android:gravity="center"
                     android:text="@{weather.current_condition[0].weatherDesc[0].value}"
                     android:textColor="@color/white"
@@ -88,6 +90,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
+                    android:fontFamily="@font/open_sans"
                     android:gravity="center"
                     android:textColor="@color/ghost_white"
                     android:textSize="16sp"
@@ -148,6 +151,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/open_sans"
                     android:text='@{(weather.current_condition[0].temp_C != null? weather.current_condition[0].temp_C+ "º" : "") }'
                     android:textColor="@color/white"
                     android:textSize="18sp"
@@ -160,6 +164,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/open_sans"
                     android:text='@{(weather.current_condition[0].windspeedKmph != null? weather.current_condition[0].windspeedKmph+ "km/h" : "") }'
                     android:textColor="@color/white"
                     android:textSize="18sp"
@@ -172,6 +177,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/open_sans"
                     android:text='@{(weather.current_condition[0].humidity != null? weather.current_condition[0].humidity+ "%" : "") }'
                     android:textColor="@color/white"
                     android:textSize="18sp"
@@ -186,6 +192,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
+                    android:fontFamily="@font/open_sans"
                     android:text="@string/today"
                     android:textColor="@color/white"
                     android:textSize="18sp"
@@ -198,6 +205,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/open_sans"
                     android:text="@string/next_forecast"
                     android:textColor="@color/white"
                     android:textSize="18sp"
@@ -223,35 +231,35 @@
                     tools:listitem="@layout/holder_hourly_weather_item" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <ImageView
-                android:id="@+id/genericImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_cloud"
-                tools:visibility="gone"
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/animation"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="64dp"
                 android:visibility="@{generic ?  View.VISIBLE : View.GONE}"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/addButton"
+                app:lottie_autoPlay="true"
+                app:lottie_fileName="intro_travel.json"
+                app:lottie_loop="true" />
 
             <TextView
                 android:id="@+id/genericText"
                 android:layout_width="0dp"
-                tools:visibility="gone"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="32dp"
+                android:fontFamily="@font/open_sans"
                 android:gravity="center"
                 android:text="@string/welcome_n_to_our_weather_app"
                 android:textColor="@color/white"
                 android:textSize="22sp"
-                android:textStyle="bold"
                 android:visibility="@{generic ?  View.VISIBLE : View.GONE}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/genericImage" />
+                app:layout_constraintTop_toBottomOf="@id/animation" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -5,18 +5,18 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginStart="8dp"
-    app:cardCornerRadius="8dp"
     android:backgroundTint="@color/green_shreen"
     android:elevation="0dp"
     android:minHeight="130dp"
     android:paddingStart="8dp"
     android:paddingTop="8dp"
     android:paddingEnd="8dp"
-    android:paddingBottom="24dp">
+    android:paddingBottom="24dp"
+    app:cardCornerRadius="8dp">
 
     <View
         android:layout_width="100dp"
-        android:layout_height="130dp"/>
+        android:layout_height="130dp" />
 
 </androidx.cardview.widget.CardView>
 

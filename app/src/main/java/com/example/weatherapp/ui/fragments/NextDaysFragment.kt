@@ -21,9 +21,13 @@ import kotlinx.coroutines.launch
 class NextDaysFragment : AbstractFragment() {
 
     lateinit var binding: FragmentNextDaysBinding
-    private val adapter: WeatherAdapter = WeatherAdapter(){
+    private val adapter: WeatherAdapter = WeatherAdapter() {
         (it as Weather).apply {
-            findNavController().navigate(NextDaysFragmentDirections.actionNextDaysFragmentToDayDetailsFragment(date = this.date))
+            findNavController().navigate(
+                NextDaysFragmentDirections.actionNextDaysFragmentToDayDetailsFragment(
+                    date = this.date
+                )
+            )
         }
     }
 
@@ -42,7 +46,7 @@ class NextDaysFragment : AbstractFragment() {
         binding.daysWeatherRecycler.showShimmer()
 
         //for smoothest animation
-        GlobalScope.launch(Dispatchers.Main){
+        GlobalScope.launch(Dispatchers.Main) {
             delay(200)
             viewModel.getNextWeek()
         }

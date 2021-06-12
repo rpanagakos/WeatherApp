@@ -18,9 +18,9 @@ import kotlinx.coroutines.launch
 
 class DayDetailsFragment : AbstractFragment() {
 
-    lateinit var binding : FragmentDayDetailsBinding
+    lateinit var binding: FragmentDayDetailsBinding
     private val adapter: DetailsAdapter = DetailsAdapter()
-    private val args : DayDetailsFragmentArgs by navArgs()
+    private val args: DayDetailsFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,13 +33,13 @@ class DayDetailsFragment : AbstractFragment() {
     }
 
     override fun initLayout() {
-        binding.dayDetailsRecycler.layoutManager =  GridLayoutManager(context, 2)
+        binding.dayDetailsRecycler.layoutManager = GridLayoutManager(context, 2)
         binding.dayDetailsRecycler.setHasFixedSize(true)
         binding.dayDetailsRecycler.adapter = adapter
         binding.dayDetailsRecycler.showShimmer()
 
         //for smoothest animation
-        GlobalScope.launch(Dispatchers.Main){
+        GlobalScope.launch(Dispatchers.Main) {
             delay(200)
             viewModel.getDayDetails(args.date)
         }

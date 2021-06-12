@@ -24,7 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class LocationsFragment : AbstractFragment() {
 
     lateinit var binding: FragmentLocationsBinding
-    private val adapter: WeatherAdapter = WeatherAdapter(){
+    private val adapter: WeatherAdapter = WeatherAdapter() {
         (it as LocationsEntity).apply {
             binding.searchEditText.setText(this.location)
             navigateToLanding()
@@ -54,6 +54,10 @@ class LocationsFragment : AbstractFragment() {
             navigateToLanding()
         }
 
+        binding.animation.setSafeOnClickListener {
+            binding.animation.playAnimation()
+        }
+
         binding.searchEditText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 navigateToLanding()
@@ -71,6 +75,7 @@ class LocationsFragment : AbstractFragment() {
                 }
                 else -> {
                     binding.noLocations = true
+                    binding.animation.playAnimation()
                 }
             }
         })
@@ -82,6 +87,7 @@ class LocationsFragment : AbstractFragment() {
     private fun navigateToLanding() {
         when {
             !binding.searchEditText.text.isNullOrEmpty() -> {
+                if (binding.noLocations == true) binding.animation.cancelAnimation()
                 hideKeyboard()
                 findNavController().navigate(
                     LocationsFragmentDirections.actionLocationsFragmentToLandingFragment(

@@ -5,13 +5,13 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginStart="8dp"
-    android:background="@drawable/details_card"
-    app:layout_constraintDimensionRatio="W, 1:1"
     android:layout_marginEnd="8dp"
+    android:background="@drawable/details_card"
     android:paddingStart="16dp"
     android:paddingTop="8dp"
     android:paddingEnd="16dp"
-    android:paddingBottom="8dp">
+    android:paddingBottom="8dp"
+    app:layout_constraintDimensionRatio="W, 1:1">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/weatherImage"
@@ -30,6 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="8dp"
+        android:fontFamily="@font/open_sans"
         android:gravity="center"
         android:textColor="@color/white"
         android:textSize="16sp"
@@ -43,6 +44,7 @@
         android:id="@+id/tempHourly"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/open_sans"
         android:gravity="center"
         android:textColor="@color/white"
         android:textSize="22sp"

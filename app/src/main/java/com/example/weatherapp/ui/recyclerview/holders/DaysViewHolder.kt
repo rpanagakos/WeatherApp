@@ -11,8 +11,8 @@ import kotlinx.android.synthetic.main.holder_days_item.view.*
 
 class DaysViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    fun present(data: LocalModel, onClickElement:(selected : LocalModel) -> Unit){
-        when(data){
+    fun present(data: LocalModel, onClickElement: (selected: LocalModel) -> Unit) {
+        when (data) {
             is Weather -> {
                 itemView.dayText.text = dateToDayNameEEEE(data.date)
                 itemView.weatherType.text = data.hourly[6].weatherDesc[0].value
