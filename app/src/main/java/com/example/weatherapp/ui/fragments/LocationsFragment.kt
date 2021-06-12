@@ -110,4 +110,9 @@ class LocationsFragment : AbstractFragment() {
         val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallBack)
         itemTouchHelper.attachToRecyclerView(recyclerView)
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        arguments?.clear()
+    }
 }
