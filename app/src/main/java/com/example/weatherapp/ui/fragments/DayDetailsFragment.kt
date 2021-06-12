@@ -11,7 +11,6 @@ import com.example.weatherapp.abstraction.AbstractFragment
 import com.example.weatherapp.abstraction.Utils.dateToDayNameEEEE
 import com.example.weatherapp.databinding.FragmentDayDetailsBinding
 import com.example.weatherapp.ui.recyclerview.DetailsAdapter
-import kotlinx.android.synthetic.main.fragment_day_details.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
@@ -35,7 +34,7 @@ class DayDetailsFragment : AbstractFragment() {
 
     override fun initLayout() {
         binding.dayDetailsRecycler.layoutManager =  GridLayoutManager(context, 2)
-        dayDetailsRecycler.setHasFixedSize(true)
+        binding.dayDetailsRecycler.setHasFixedSize(true)
         binding.dayDetailsRecycler.adapter = adapter
         binding.dayDetailsRecycler.showShimmer()
 

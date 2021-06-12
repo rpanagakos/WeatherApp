@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/dayConstraint"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dayConstraint"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/transparent">
+    android:layout_marginBottom="24dp"
+    android:background="@drawable/location_corners"
+    android:backgroundTint="@color/oxford_blue"
+    android:paddingStart="16dp"
+    android:paddingTop="16dp"
+    android:paddingEnd="16dp"
+    android:paddingBottom="16dp">
 
     <TextView
         android:id="@+id/dayText"
@@ -14,9 +20,9 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@id/weatherImage"
+        app:layout_constraintEnd_toStartOf="@id/celciusText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Wednesday" />
@@ -26,28 +32,39 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
+        android:layout_marginBottom="8dp"
         android:textColor="@color/ghost_white"
-        android:textSize="18sp"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/dayText"
         app:layout_constraintStart_toStartOf="@id/dayText"
         app:layout_constraintTop_toBottomOf="@id/dayText"
         tools:text="Cloudy" />
 
-    <ImageView
+    <TextView
+        android:id="@+id/celciusText"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="24dp"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="38sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/weatherImage"
+        app:layout_constraintStart_toEndOf="@id/dayText"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="spread"
+        tools:text="32º" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/weatherImage"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:src="@mipmap/ic_launcher"
-        app:layout_constraintBottom_toTopOf="@+id/view"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/celciusText"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <View
-        android:id="@+id/view"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/picotee_light_blue"
-        app:layout_constraintTop_toBottomOf="@id/weatherType" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

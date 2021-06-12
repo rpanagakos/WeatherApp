@@ -37,10 +37,13 @@ fun dateHHMM(oldDate: String): String{
             dateFormat = SimpleDateFormat("hhmm")
         }
     }
-    val dateFormat2 = SimpleDateFormat("hh:mm aa")
+    val dateFormat2 = SimpleDateFormat("HH.mm")
     try {
         val date = dateFormat.parse(oldDate)
-        return dateFormat2.format(date)
+        return when(dateFormat2.format(date)){
+            "00.00" -> "12.00"
+            else -> dateFormat2.format(date)
+        }
     } catch (e: ParseException) {
         return  ""
     }
@@ -98,7 +101,7 @@ fun EditText.showKeyboard() {
 fun getHourlyTime(time: String): String{
     when (time) {
         "0" -> {
-            return "00:00 am"
+            return "00.00"
         }
         else -> {
             return  dateHHMM(time)

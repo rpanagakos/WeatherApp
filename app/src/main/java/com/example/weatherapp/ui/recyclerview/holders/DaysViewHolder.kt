@@ -16,6 +16,7 @@ class DaysViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             is Weather -> {
                 itemView.dayText.text = dateToDayNameEEEE(data.date)
                 itemView.weatherType.text = data.hourly[6].weatherDesc[0].value
+                itemView.celciusText.text = data.avgtempC + "º"
                 itemView.weatherImage.loadImageFromUrl(data.hourly[6].weatherIconUrl[0].value)
                 itemView.dayConstraint.setSafeOnClickListener {
                     onClickElement.invoke(data)

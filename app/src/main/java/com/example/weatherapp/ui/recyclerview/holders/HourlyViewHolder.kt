@@ -14,7 +14,8 @@ class HourlyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         when (data) {
             is Hourly -> {
                 itemView.weatherImage.loadImageFromUrl(data.weatherIconUrl[0].value)
-                itemView.timeNtemp.text = getHourlyTime(data.time) + "\n" + data.tempC + "º"
+                itemView.timeNtemp.text = getHourlyTime(data.time)
+                itemView.tempHourly.text = data.tempC+ "º"
             }
         }
     }

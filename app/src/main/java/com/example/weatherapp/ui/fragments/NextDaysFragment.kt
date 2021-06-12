@@ -37,6 +37,7 @@ class NextDaysFragment : AbstractFragment() {
     }
 
     override fun initLayout() {
+        binding.daysWeatherRecycler.setHasFixedSize(true)
         binding.daysWeatherRecycler.adapter = adapter
         binding.daysWeatherRecycler.showShimmer()
 
@@ -48,7 +49,6 @@ class NextDaysFragment : AbstractFragment() {
         binding.backButton.setSafeOnClickListener {
             activity?.onBackPressed()
         }
-        binding.titleNextDays.text = viewModel.latestLocation.value
     }
 
     override fun observeViewModel() {
