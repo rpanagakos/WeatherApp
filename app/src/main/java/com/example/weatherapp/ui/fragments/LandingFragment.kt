@@ -81,9 +81,5 @@ class LandingFragment : AbstractFragment() {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        arguments?.clear()
-    }
 
 }

@@ -2,7 +2,7 @@ package com.example.weatherapp.ui
 
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import coil.load
+import com.bumptech.glide.Glide
 import com.example.weatherapp.R
 import com.example.weatherapp.abstraction.Utils.dateToFullDateName
 import de.hdodenhof.circleimageview.CircleImageView
@@ -13,12 +13,13 @@ object WeatherBinding {
     @JvmStatic
     fun CircleImageView.loadImageFromUrl(imageUrl: String?) {
         if (imageUrl != null) {
-            load(imageUrl) {
-                crossfade(600)
-                placeholder(R.drawable.ic_failed)
-                error(R.drawable.ic_failed)
-            }
+            Glide.with(this)
+                .load(imageUrl)
+                .error(Glide.with(this).load(R.drawable.ic_failed))
+                .circleCrop()
+                .into(this)
         }
+
     }
 
     @BindingAdapter(value = ["dateFormatWeather"])
