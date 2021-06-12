@@ -9,7 +9,6 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.example.weatherapp.R
 import com.example.weatherapp.abstraction.AbstractFragment
 import com.example.weatherapp.abstraction.LocalModel
 import com.example.weatherapp.abstraction.Utils.hideKeyboard
@@ -48,7 +47,7 @@ class LocationsFragment : AbstractFragment() {
         binding.searchEditText.showKeyboard()
         binding.backButton.setOnClickListener {
             hideKeyboard()
-            findNavController().navigate(R.id.action_locationsFragment_to_landingFragment)
+            activity?.onBackPressed()
         }
 
         binding.searchButtom.setSafeOnClickListener {

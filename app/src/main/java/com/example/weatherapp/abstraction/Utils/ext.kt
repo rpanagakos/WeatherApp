@@ -94,3 +94,14 @@ fun EditText.showKeyboard() {
         imm.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
     }
 }
+
+fun getHourlyTime(time: String): String{
+    when (time) {
+        "0" -> {
+            return "00:00 am"
+        }
+        else -> {
+            return  dateHHMM(time)
+        }
+    }
+}

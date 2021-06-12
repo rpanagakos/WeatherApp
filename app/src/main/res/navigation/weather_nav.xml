@@ -44,6 +44,13 @@
             app:popUpTo="@id/landingFragment"
             app:popUpToInclusive="true"
             app:launchSingleTop="true"/>
+        <action
+            android:id="@+id/action_nextDaysFragment_to_dayDetailsFragment"
+            app:destination="@id/dayDetailsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/locationsFragment"
@@ -55,5 +62,22 @@
             app:destination="@id/landingFragment"
             app:enterAnim="@anim/slide_in_bottom"
             app:exitAnim="@anim/slide_out_top"/>
+    </fragment>
+    <fragment
+        android:id="@+id/dayDetailsFragment"
+        android:name="com.example.weatherapp.ui.fragments.DayDetailsFragment"
+        android:label="DayDetailsFragment"
+        tools:layout="@layout/fragment_day_details">
+        <action
+            android:id="@+id/action_dayDetailsFragment_to_nextDaysFragment"
+            app:destination="@id/nextDaysFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/nextDaysFragment"
+            app:popUpToInclusive="true"
+            app:launchSingleTop="true"/>
+        <argument
+            android:name="date"
+            app:argType="string" />
     </fragment>
 </navigation>

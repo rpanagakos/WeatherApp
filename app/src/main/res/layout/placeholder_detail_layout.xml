@@ -12,48 +12,45 @@
     app:layout_constraintDimensionRatio="1:1">
 
     <View
-        android:id="@+id/dayText"
+        android:id="@+id/degreesText"
         android:layout_width="0dp"
         android:layout_height="30dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="32dp"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:textStyle="bold"
+        android:layout_marginEnd="8dp"
         android:background="@color/green_shreen"
         app:layout_constraintEnd_toStartOf="@id/weatherImage"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Wednesday" />
-
-    <View
-        android:id="@+id/weatherType"
-        android:layout_width="0dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="4dp"
-        android:textColor="@color/ghost_white"
-        android:textSize="18sp"
-        android:background="@color/green_shreen"
-        app:layout_constraintEnd_toEndOf="@id/dayText"
-        app:layout_constraintStart_toStartOf="@id/dayText"
-        app:layout_constraintTop_toBottomOf="@id/dayText"
-        tools:text="Cloudy" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:id="@+id/weatherImage"
         android:layout_width="48dp"
         android:layout_height="48dp"
+        android:layout_marginTop="16dp"
         android:background="@color/green_shreen"
-        app:layout_constraintBottom_toTopOf="@+id/view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <View
-        android:id="@+id/view"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:id="@+id/weatherDesc"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
         android:layout_marginTop="8dp"
-        android:background="@color/picotee_light_blue"
-        app:layout_constraintTop_toBottomOf="@id/weatherType" />
+        android:background="@color/green_shreen"
+        app:layout_constraintEnd_toEndOf="@id/degreesText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/degreesText" />
+
+    <View
+        android:id="@+id/timeText"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/green_shreen"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/weatherDesc"
+        app:layout_constraintVertical_bias="1"
+        tools:text="3:00pm" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

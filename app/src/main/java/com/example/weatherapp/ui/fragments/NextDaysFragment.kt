@@ -6,18 +6,26 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.example.weatherapp.R
 import com.example.weatherapp.abstraction.AbstractFragment
 import com.example.weatherapp.abstraction.Utils.setSafeOnClickListener
 import com.example.weatherapp.databinding.FragmentNextDaysBinding
+import com.example.weatherapp.models.Weather
 import com.example.weatherapp.ui.recyclerview.WeatherAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class NextDaysFragment : AbstractFragment() {
 
     lateinit var binding: FragmentNextDaysBinding
-    private val adapter: WeatherAdapter = WeatherAdapter(){}
+    private val adapter: WeatherAdapter = WeatherAdapter(){
+        (it as Weather).apply {
+            findNavController().navigate(NextDaysFragmentDirections.actionNextDaysFragmentToDayDetailsFragment(date = this.date))
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,13 +37,18 @@ class NextDaysFragment : AbstractFragment() {
     }
 
     override fun initLayout() {
-        viewModel.getNextWeek()
-
         binding.daysWeatherRecycler.adapter = adapter
         binding.daysWeatherRecycler.showShimmer()
-        binding.backButton.setSafeOnClickListener {
-            findNavController().navigate(R.id.action_nextDaysFragment_to_landingFragment)
+
+        //for smoothest animation
+        GlobalScope.launch(Dispatchers.Main){
+            delay(200)
+            viewModel.getNextWeek()
         }
+        binding.backButton.setSafeOnClickListener {
+            activity?.onBackPressed()
+        }
+        binding.titleNextDays.text = viewModel.latestLocation.value
     }
 
     override fun observeViewModel() {

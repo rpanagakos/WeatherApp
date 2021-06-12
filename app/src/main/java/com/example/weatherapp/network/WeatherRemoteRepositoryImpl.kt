@@ -15,6 +15,10 @@ class WeatherRemoteRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getNextWeek(city: String, numOfDays : String): Response<GenericResponse<WeatherResponse>> {
-        return weatherApi.getNextWeek(city, date = numOfDays)
+        return weatherApi.getNextWeek(city, days = numOfDays)
+    }
+
+    override suspend fun getDayDetails(city: String, date : String): Response<GenericResponse<WeatherResponse>> {
+        return weatherApi.getDayDetails(city, date = date)
     }
 }
