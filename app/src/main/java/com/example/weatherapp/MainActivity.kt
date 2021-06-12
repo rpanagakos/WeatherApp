@@ -3,7 +3,11 @@ package com.example.weatherapp
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.weatherapp.abstraction.AbstractActivity
+import com.example.weatherapp.ui.fragments.DayDetailsFragment
+import com.example.weatherapp.ui.fragments.LocationsFragment
+import com.example.weatherapp.ui.fragments.NextDaysFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.activity_main.*
 
 @AndroidEntryPoint
 class MainActivity : AbstractActivity(R.layout.activity_main) {
@@ -18,6 +22,14 @@ class MainActivity : AbstractActivity(R.layout.activity_main) {
     }
 
     override fun stopOperation() {
+    }
+
+    override fun onBackPressed() {
+        when(nav_weather_fragment.childFragmentManager.fragments[0]){
+            is LocationsFragment, is DayDetailsFragment,
+                is NextDaysFragment -> super.onBackPressed()
+            else -> finish()
+        }
     }
 
 }
