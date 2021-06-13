@@ -1,6 +1,5 @@
 package com.example.weatherapp.ui
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
@@ -10,12 +9,15 @@ import com.example.weatherapp.database.LocalDataSource
 import com.example.weatherapp.database.LocationsEntity
 import com.example.weatherapp.models.WeatherResponse
 import com.example.weatherapp.network.WeatherRemoteRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
+import javax.inject.Inject
 
-class WeatherViewModel @ViewModelInject constructor(
+@HiltViewModel
+class WeatherViewModel @Inject constructor(
     private val weatherRepository: WeatherRemoteRepository,
     private val localDataSource: LocalDataSource
 ) : ViewModel() {

@@ -11,11 +11,13 @@ import com.example.weatherapp.abstraction.AbstractFragment
 import com.example.weatherapp.abstraction.Utils.dateToDayNameEEEE
 import com.example.weatherapp.databinding.FragmentDayDetailsBinding
 import com.example.weatherapp.ui.recyclerview.DetailsAdapter
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class DayDetailsFragment : AbstractFragment() {
 
     lateinit var binding: FragmentDayDetailsBinding
