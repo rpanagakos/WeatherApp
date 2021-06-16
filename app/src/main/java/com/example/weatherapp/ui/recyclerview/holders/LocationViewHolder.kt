@@ -9,7 +9,11 @@ import kotlinx.android.synthetic.main.holder_location_item.view.*
 
 class LocationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    fun present(data: LocalModel, lastOne : Boolean, onClickElement:(selected : LocalModel) -> Unit) {
+    fun present(
+        data: LocalModel,
+        lastOne: Boolean,
+        onClickElement: (selected: LocalModel) -> Unit
+    ) {
         when (data) {
             is LocationsEntity -> {
                 itemView.locationText.text = data.location.substringBefore(",")

@@ -19,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class LandingFragment : AbstractFragment() {
 
     lateinit var binding: FragmentLandingBinding
-    private val adapter: WeatherAdapter = WeatherAdapter(){}
+    private val adapter: WeatherAdapter = WeatherAdapter() {}
 
     private val args: LandingFragmentArgs by navArgs()
 
@@ -49,9 +49,17 @@ class LandingFragment : AbstractFragment() {
             binding.weather = it
             when {
                 !it.weather.isNullOrEmpty() -> {
-                    viewModel.insertLocation(it.request[0].query) {}
+                    when{
+                        !args.newLocation.equals("empty") -> viewModel.insertLocation(it.request[0].query) {}
+                    }
                     adapter.submitList(it.weather[0].hourly)
                     binding.hourlyWeatherRecycler.hideShimmer()
+                }
+                else -> {
+                    binding.animation.setAnimation("empty.json")
+                    binding.genericText.text = getString(R.string.wrong_location)
+                    binding.generic = true
+                    binding.animation.playAnimation()
                 }
             }
         })
@@ -72,5 +80,6 @@ class LandingFragment : AbstractFragment() {
             else -> viewModel.getLatestLocation()
         }
     }
+
 
 }

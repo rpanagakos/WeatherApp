@@ -27,7 +27,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/backgroud"
+            android:background="@color/russian_violet"
             tools:context=".ui.fragments.LandingFragment">
 
             <ImageView
@@ -36,7 +36,7 @@
                 android:layout_height="32dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:src="@drawable/ic_add"
+                android:src="@drawable/ic_baseline_location_on_24"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:tint="@color/white" />
@@ -56,89 +56,143 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/montserrat"
+                    android:gravity="center"
                     android:text="@{weather.request[0].query}"
                     android:textColor="@color/white"
-                    android:textSize="22sp"
+                    android:textSize="32sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="Bangalore, India" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <TextView
+                    android:id="@+id/weatherStatus"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="40dp"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginEnd="40dp"
-                    android:layout_marginBottom="16dp"
-                    android:background="@drawable/current_day"
-                    android:paddingBottom="16dp"
-                    app:layout_constraintBottom_toTopOf="@+id/todayTextView"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/montserrat"
+                    android:gravity="center"
+                    android:text="@{weather.current_condition[0].weatherDesc[0].value}"
+                    android:textColor="@color/white"
+                    android:textSize="26sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/cityName"
-                    app:layout_constraintVertical_bias="0">
+                    tools:text="Heavy Rainfall" />
 
-                    <ImageView
-                        android:id="@+id/currentImage"
-                        imageURLWeather="@{weather.current_condition[0].weatherIconUrl[0].value}"
-                        android:layout_width="96dp"
-                        android:layout_height="96dp"
-                        android:layout_marginTop="16dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/currentDate"
+                    dateFormatWeather="@{weather.weather[0].date}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/montserrat"
+                    android:gravity="center"
+                    android:textColor="@color/ghost_white"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="@id/weatherStatus"
+                    app:layout_constraintStart_toStartOf="@id/weatherStatus"
+                    app:layout_constraintTop_toBottomOf="@id/weatherStatus"
+                    tools:text="Sunday 15 Nov 2020" />
 
-                    <TextView
-                        android:id="@+id/weatherStatus"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="16dp"
-                        android:gravity="center"
-                        android:text="@{weather.current_condition[0].weatherDesc[0].value}"
-                        android:textColor="@color/white"
-                        android:textSize="26sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/currentImage"
-                        tools:text="Heavy Rainfall" />
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/currentImage"
+                    imageURLWeather="@{weather.current_condition[0].weatherIconUrl[0].value}"
+                    android:layout_width="144dp"
+                    android:layout_height="144dp"
+                    android:layout_marginTop="24dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/currentDate" />
 
-                    <TextView
-                        android:id="@+id/currentDate"
-                        dateFormatWeather="@{weather.weather[0].date}"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:gravity="center"
-                        android:textColor="@color/ghost_white"
-                        android:textSize="16sp"
-                        app:layout_constraintEnd_toEndOf="@id/weatherStatus"
-                        app:layout_constraintStart_toStartOf="@id/weatherStatus"
-                        app:layout_constraintTop_toBottomOf="@id/weatherStatus"
-                        tools:text="Sunday 15 Nov 2020" />
+                <TextView
+                    android:id="@+id/tempText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="36dp"
+                    android:text="@string/temp"
+                    android:textColor="@color/ghost_white"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toStartOf="@+id/windText"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintHorizontal_chainStyle="spread_inside"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/currentImage" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text='@{(weather.current_condition[0].temp_C != null? weather.current_condition[0].temp_C+ "º" : "") }'
-                        android:textColor="@color/white"
-                        android:textSize="56sp"
-                        app:layout_constraintEnd_toEndOf="@id/weatherStatus"
-                        app:layout_constraintStart_toStartOf="@id/weatherStatus"
-                        app:layout_constraintTop_toBottomOf="@id/currentDate"
-                        tools:text="10º" />
+                <TextView
+                    android:id="@+id/windText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/wind"
+                    android:textColor="@color/ghost_white"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="@+id/currentImage"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@+id/currentImage"
+                    app:layout_constraintTop_toTopOf="@id/tempText" />
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/humidityText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/humidity"
+                    android:textColor="@color/ghost_white"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/windText"
+                    app:layout_constraintTop_toTopOf="@id/tempText" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat"
+                    android:text='@{(weather.current_condition[0].temp_C != null? weather.current_condition[0].temp_C+ "º" : "") }'
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/tempText"
+                    app:layout_constraintStart_toStartOf="@+id/tempText"
+                    app:layout_constraintTop_toBottomOf="@+id/tempText"
+                    tools:text="10º" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat"
+                    android:text='@{(weather.current_condition[0].windspeedKmph != null? weather.current_condition[0].windspeedKmph+ "km/h" : "") }'
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/windText"
+                    app:layout_constraintStart_toStartOf="@+id/windText"
+                    app:layout_constraintTop_toBottomOf="@+id/windText"
+                    tools:text="10º" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat"
+                    android:text='@{(weather.current_condition[0].humidity != null? weather.current_condition[0].humidity+ "%" : "") }'
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/humidityText"
+                    app:layout_constraintStart_toStartOf="@+id/humidityText"
+                    app:layout_constraintTop_toBottomOf="@+id/humidityText"
+                    tools:text="10º" />
 
                 <TextView
                     android:id="@+id/todayTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
+                    android:fontFamily="@font/montserrat"
                     android:text="@string/today"
                     android:textColor="@color/white"
                     android:textSize="18sp"
@@ -151,7 +205,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
-                    android:text="@string/next_week"
+                    android:fontFamily="@font/montserrat"
+                    android:text="@string/next_forecast"
                     android:textColor="@color/white"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toTopOf="@id/hourlyWeatherRecycler"
@@ -160,10 +215,10 @@
                 <com.todkars.shimmer.ShimmerRecyclerView
                     android:id="@+id/hourlyWeatherRecycler"
                     android:layout_width="match_parent"
-                    android:layout_height="170dp"
+                    android:layout_height="120dp"
                     android:clipToPadding="false"
                     android:orientation="horizontal"
-                    android:paddingStart="0dp"
+                    android:paddingStart="8dp"
                     android:paddingTop="16dp"
                     android:paddingEnd="8dp"
                     android:paddingBottom="24dp"
@@ -176,16 +231,18 @@
                     tools:listitem="@layout/holder_hourly_weather_item" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <ImageView
-                android:id="@+id/genericImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_cloud"
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/animation"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="64dp"
                 android:visibility="@{generic ?  View.VISIBLE : View.GONE}"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/addButton"
+                app:lottie_autoPlay="true"
+                app:lottie_fileName="intro_travel.json"
+                app:lottie_loop="true" />
 
             <TextView
                 android:id="@+id/genericText"
@@ -194,15 +251,15 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="32dp"
+                android:fontFamily="@font/montserrat"
                 android:gravity="center"
                 android:text="@string/welcome_n_to_our_weather_app"
                 android:textColor="@color/white"
                 android:textSize="22sp"
-                android:textStyle="bold"
                 android:visibility="@{generic ?  View.VISIBLE : View.GONE}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/genericImage" />
+                app:layout_constraintTop_toBottomOf="@id/animation" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -25,8 +25,8 @@ abstract class AbstractFragment : Fragment() {
 
         viewModel.internetConnection.observe(viewLifecycleOwner, Observer {
             when(it){
-                true -> Toast.makeText(requireActivity(), "Check your internet connection.", Toast.LENGTH_SHORT).show()
-                false -> Toast.makeText(requireActivity(), "Something went wrong. Try again later", Toast.LENGTH_SHORT).show()
+                true -> Toast.makeText(requireActivity(), "Check your internet connection.", Toast.LENGTH_LONG).show()
+                false -> Toast.makeText(requireActivity(), "Something went wrong. Try again later", Toast.LENGTH_LONG).show()
             }
         })
     }

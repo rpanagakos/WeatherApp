@@ -15,7 +15,7 @@ import com.example.weatherapp.ui.recyclerview.holders.DaysViewHolder
 import com.example.weatherapp.ui.recyclerview.holders.HourlyViewHolder
 import com.example.weatherapp.ui.recyclerview.holders.LocationViewHolder
 
-class WeatherAdapter(private val onClickElement:(selected : LocalModel) -> Unit) :
+class WeatherAdapter(private val onClickElement: (selected: LocalModel) -> Unit) :
     ListAdapter<LocalModel, RecyclerView.ViewHolder>(DiffUtilClass<LocalModel>()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
@@ -37,7 +37,11 @@ class WeatherAdapter(private val onClickElement:(selected : LocalModel) -> Unit)
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) = when (holder) {
         is DaysViewHolder -> holder.present(getItem(position), onClickElement)
         is HourlyViewHolder -> holder.present(getItem(position))
-        is LocationViewHolder -> holder.present(getItem(position), isLast(position, itemCount), onClickElement)
+        is LocationViewHolder -> holder.present(
+            getItem(position),
+            isLast(position, itemCount),
+            onClickElement
+        )
         else -> Unit
     }
 
@@ -48,7 +52,7 @@ class WeatherAdapter(private val onClickElement:(selected : LocalModel) -> Unit)
         else -> R.layout.holder_days_item
     }
 
-    private fun isLast(itemPosition: Int, items : Int): Boolean{
-        return itemPosition == items -1
+    private fun isLast(itemPosition: Int, items: Int): Boolean {
+        return itemPosition == items - 1
     }
 }

@@ -10,7 +10,6 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.example.weatherapp.R
 import com.example.weatherapp.abstraction.AbstractFragment
 import com.example.weatherapp.abstraction.LocalModel
 import com.example.weatherapp.abstraction.Utils.hideKeyboard
@@ -29,7 +28,7 @@ import kotlinx.android.synthetic.main.holder_location_item.view.*
 class LocationsFragment : AbstractFragment() {
 
     lateinit var binding: FragmentLocationsBinding
-    private val adapter: WeatherAdapter = WeatherAdapter(){
+    private val adapter: WeatherAdapter = WeatherAdapter() {
         (it as LocationsEntity).apply {
             binding.searchEditText.setText(this.location)
             navigateToLanding()
@@ -52,11 +51,15 @@ class LocationsFragment : AbstractFragment() {
         binding.searchEditText.showKeyboard()
         binding.backButton.setOnClickListener {
             hideKeyboard()
-            findNavController().navigate(R.id.action_locationsFragment_to_landingFragment)
+            activity?.onBackPressed()
         }
 
         binding.searchButtom.setSafeOnClickListener {
             navigateToLanding()
+        }
+
+        binding.animation.setSafeOnClickListener {
+            binding.animation.playAnimation()
         }
 
         binding.searchEditText.setOnEditorActionListener { _, actionId, _ ->
@@ -76,6 +79,7 @@ class LocationsFragment : AbstractFragment() {
                 }
                 else -> {
                     binding.noLocations = true
+                    binding.animation.playAnimation()
                 }
             }
         })
@@ -87,6 +91,7 @@ class LocationsFragment : AbstractFragment() {
     private fun navigateToLanding() {
         when {
             !binding.searchEditText.text.isNullOrEmpty() -> {
+                if (binding.noLocations == true) binding.animation.cancelAnimation()
                 hideKeyboard()
                 findNavController().navigate(
                     LocationsFragmentDirections.actionLocationsFragmentToLandingFragment(
@@ -144,5 +149,10 @@ class LocationsFragment : AbstractFragment() {
         }
         val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallBack)
         itemTouchHelper.attachToRecyclerView(recyclerView)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        arguments?.clear()
     }
 }

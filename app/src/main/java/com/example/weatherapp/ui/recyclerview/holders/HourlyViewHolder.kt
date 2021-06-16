@@ -1,11 +1,9 @@
 package com.example.weatherapp.ui.recyclerview.holders
 
-import android.os.Build
 import android.view.View
-import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherapp.abstraction.LocalModel
-import com.example.weatherapp.abstraction.Utils.dateHHMM
+import com.example.weatherapp.abstraction.Utils.getHourlyTime
 import com.example.weatherapp.models.Hourly
 import com.example.weatherapp.ui.WeatherBinding.loadImageFromUrl
 import kotlinx.android.synthetic.main.holder_hourly_weather_item.view.*
@@ -16,14 +14,8 @@ class HourlyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         when (data) {
             is Hourly -> {
                 itemView.weatherImage.loadImageFromUrl(data.weatherIconUrl[0].value)
-                when (data.time) {
-                    "0" -> {
-                        itemView.timeNtemp.text = "00:00 AM" + "\n" + data.tempC + "º"
-                    }
-                    else -> {
-                        itemView.timeNtemp.text = dateHHMM(data.time) + "\n" + data.tempC + "º"
-                    }
-                }
+                itemView.timeNtemp.text = getHourlyTime(data.time)
+                itemView.tempHourly.text = data.tempC + "º"
             }
         }
     }

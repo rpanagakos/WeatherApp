@@ -6,33 +6,51 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="16dp"
+    android:background="@drawable/location_corners"
+    android:backgroundTint="@color/oxford_blue"
+    android:paddingStart="16dp"
     android:paddingTop="16dp"
-    android:paddingBottom="16dp"
-    android:paddingStart="8dp"
-    android:paddingEnd="8dp"
-    android:background="@drawable/location_corners">
+    android:paddingEnd="16dp"
+    android:paddingBottom="16dp">
 
     <TextView
         android:id="@+id/locationText"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textColor="@color/russian_blue"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/montserrat"
+        android:textColor="@color/white"
         android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/image"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Athens" />
 
     <TextView
         android:id="@+id/countryText"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:textSize="18sp"
-        app:layout_constraintVertical_bias="0"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/montserrat"
+        android:textColor="@color/ghost_white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/image"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/locationText"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0"
         tools:text="Greece" />
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:src="@drawable/ic_baseline_location_on_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

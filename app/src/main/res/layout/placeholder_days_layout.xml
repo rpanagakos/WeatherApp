@@ -3,8 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/transparent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="16dp"
+    android:background="@drawable/details_card"
+    android:backgroundTint="@color/transparent"
+    android:padding="16dp"
+    app:layout_constraintDimensionRatio="1:1">
 
     <View
         android:id="@+id/dayText"
@@ -12,10 +17,10 @@
         android:layout_height="30dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
+        android:background="@color/green_shreen"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:background="@color/green_shreen"
         app:layout_constraintEnd_toStartOf="@id/weatherImage"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -26,9 +31,9 @@
         android:layout_width="0dp"
         android:layout_height="30dp"
         android:layout_marginTop="4dp"
+        android:background="@color/green_shreen"
         android:textColor="@color/ghost_white"
         android:textSize="18sp"
-        android:background="@color/green_shreen"
         app:layout_constraintEnd_toEndOf="@id/dayText"
         app:layout_constraintStart_toStartOf="@id/dayText"
         app:layout_constraintTop_toBottomOf="@id/dayText"
@@ -39,16 +44,9 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:background="@color/green_shreen"
-        app:layout_constraintBottom_toTopOf="@+id/view"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <View
-        android:id="@+id/view"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/picotee_light_blue"
-        app:layout_constraintTop_toBottomOf="@id/weatherType" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,19 +5,22 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginStart="8dp"
-    android:background="@drawable/hourly_weather"
-    android:minHeight="130dp"
-    android:paddingStart="8dp"
+    android:layout_marginEnd="8dp"
+    android:background="@drawable/details_card"
+    android:paddingStart="16dp"
     android:paddingTop="8dp"
-    android:paddingEnd="8dp"
-    android:paddingBottom="24dp">
+    android:paddingEnd="16dp"
+    android:paddingBottom="8dp"
+    app:layout_constraintDimensionRatio="W, 1:1">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/weatherImage"
         android:layout_width="48dp"
         android:layout_height="48dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:src="@mipmap/ic_launcher"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -25,16 +28,31 @@
         android:id="@+id/timeNtemp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginBottom="8dp"
+        android:fontFamily="@font/montserrat"
         android:gravity="center"
-        android:textColor="@color/ghost_white"
+        android:textColor="@color/white"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/weatherImage"
-        tools:text="99:99 PM \n 10c" />
+        app:layout_constraintStart_toEndOf="@id/weatherImage"
+        app:layout_constraintTop_toTopOf="@id/weatherImage"
+        tools:text="99.99" />
+
+    <TextView
+        android:id="@+id/tempHourly"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@id/timeNtemp"
+        app:layout_constraintTop_toBottomOf="@id/timeNtemp"
+        tools:text="32º" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

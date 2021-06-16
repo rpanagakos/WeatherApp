@@ -4,8 +4,14 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="today">Today</string>
     <string name="next_week">Next week</string>
-    <string name="next_7_days">Next 7 days</string>
+    <string name="next_forecast">Next forecast</string>
     <string name="enter_your_location">Search</string>
-    <string name="welcome_n_to_our_weather_app">Welcome \n to our Weather App</string>
+    <string name="welcome_n_to_our_weather_app">Do you have plans for today or this weekend? \n Enter the location to find out the weather</string>
     <string name="enter_your_location_v2">Enter your location</string>
+    <string name="wind">Wind</string>
+    <string name="humidity">Humidity</string>
+    <string name="temp">Temp</string>
+    <string name="searching">Searching</string>
+    <string name="wrong_location">The location wasn\'t correct</string>
+    <string name="hint_swipe_left_to_remove_location">Hint: Swipe left to remove location</string>
 </resources>

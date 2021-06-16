@@ -1,6 +1,5 @@
 package com.example.weatherapp.ui
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
@@ -10,12 +9,15 @@ import com.example.weatherapp.database.LocalDataSource
 import com.example.weatherapp.database.LocationsEntity
 import com.example.weatherapp.models.WeatherResponse
 import com.example.weatherapp.network.WeatherRemoteRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
+import javax.inject.Inject
 
-class WeatherViewModel @ViewModelInject constructor(
+@HiltViewModel
+class WeatherViewModel @Inject constructor(
     private val weatherRepository: WeatherRemoteRepository,
     private val localDataSource: LocalDataSource
 ) : ViewModel() {
@@ -24,7 +26,8 @@ class WeatherViewModel @ViewModelInject constructor(
     val internetConnection = SingleLiveEvent<Boolean>()
     val weatherResponse = SingleLiveEvent<WeatherResponse>()
     val weatherNextWeek = SingleLiveEvent<WeatherResponse>()
-    val locations : LiveData<MutableList<LocationsEntity>> = localDataSource.readLocations().asLiveData()
+    val locations: LiveData<MutableList<LocationsEntity>> = localDataSource.readLocations().asLiveData()
+    val dayDetails = SingleLiveEvent<WeatherResponse>()
 
     //Room database
 
@@ -41,13 +44,13 @@ class WeatherViewModel @ViewModelInject constructor(
         }
     }
 
-    fun deleteLocation(locationsEntity: LocationsEntity){
-        viewModelScope.launch(Dispatchers.Default){
+    fun deleteLocation(locationsEntity: LocationsEntity) {
+        viewModelScope.launch(Dispatchers.Default) {
             localDataSource.deleteLocation(locationsEntity)
         }
     }
 
-    fun getLatestLocation(){
+    fun getLatestLocation() {
         viewModelScope.launch(Dispatchers.Default) {
             kotlin.runCatching {
                 localDataSource.getLatestLocation()
@@ -55,7 +58,7 @@ class WeatherViewModel @ViewModelInject constructor(
                 handleFailures(it)
             }.onSuccess {
                 it?.let {
-                    latestLocation.postValue( it.location)
+                    latestLocation.postValue(it.location)
                 }
             }
         }
@@ -106,7 +109,12 @@ class WeatherViewModel @ViewModelInject constructor(
     fun getNextWeek() {
         viewModelScope.launch(Dispatchers.Default) {
             kotlin.runCatching {
-                latestLocation.value?.let { weatherRepository.getNextWeek(city = it, numOfDays = "8") }
+                latestLocation.value?.let {
+                    weatherRepository.getNextWeek(
+                        city = it,
+                        numOfDays = "8"
+                    )
+                }
             }.onFailure {
                 //Show error handling message
                 handleFailures(it)
@@ -125,6 +133,37 @@ class WeatherViewModel @ViewModelInject constructor(
                     }
                     else -> {
                         //Show error handling message
+                        handleFailures(null)
+                    }
+                }
+            }
+        }
+    }
+
+    fun getDayDetails(date: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            kotlin.runCatching {
+                latestLocation.value?.let {
+                    weatherRepository.getDayDetails(
+                        city = it,
+                        date = date
+                    )
+                }
+            }.onFailure {
+                handleFailures(it)
+            }.onSuccess { it ->
+                when {
+                    it == null -> {
+                        handleFailures(null)
+                    }
+                    it.isSuccessful -> {
+                        it.body()?.let {
+                            it.data?.let {
+                                dayDetails.postValue(it)
+                            }
+                        }
+                    }
+                    else -> {
                         handleFailures(null)
                     }
                 }

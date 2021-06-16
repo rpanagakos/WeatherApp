@@ -9,7 +9,7 @@ interface LocationsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertLocation(locationsEntity: LocationsEntity)
 
-    @Query("SELECT * FROM locations_table ORDER BY id ASC")
+    @Query("SELECT * FROM locations_table ORDER BY id DESC")
     fun readLocations(): Flow<MutableList<LocationsEntity>>
 
     @Query("SELECT * FROM locations_table ORDER BY  id DESC LIMIT 1")
