@@ -1,6 +1,5 @@
 package com.example.weatherapp.ui.fragments
 
-import android.graphics.Canvas
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,9 +18,7 @@ import com.example.weatherapp.database.LocationsEntity
 import com.example.weatherapp.databinding.FragmentLocationsBinding
 import com.example.weatherapp.ui.recyclerview.SwipeToDelete
 import com.example.weatherapp.ui.recyclerview.WeatherAdapter
-import com.example.weatherapp.ui.recyclerview.holders.LocationViewHolder
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.holder_location_item.view.*
 
 
 @AndroidEntryPoint
@@ -109,43 +106,6 @@ class LocationsFragment : AbstractFragment() {
                     adapter.currentList[viewHolder.absoluteAdapterPosition] as LocationsEntity
                 viewModel.deleteLocation(itemToDelete)
             }
-
-            override fun clearView(
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder
-            ) {
-                val foregroundView: View = (viewHolder as LocationViewHolder).itemView.locationConstraint
-                getDefaultUIUtil().clearView(foregroundView)
-            }
-
-            override fun onChildDraw(
-                c: Canvas,
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder,
-                dX: Float,
-                dY: Float,
-                actionState: Int,
-                isCurrentlyActive: Boolean
-            ) {
-                val foregroundView: View = (viewHolder as LocationViewHolder).itemView.locationConstraint
-                getDefaultUIUtil().onDraw(c, recyclerView, foregroundView, dX, dY, actionState, isCurrentlyActive)
-
-            }
-
-            override fun onChildDrawOver(
-                c: Canvas,
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder?,
-                dX: Float,
-                dY: Float,
-                actionState: Int,
-                isCurrentlyActive: Boolean
-            ) {
-
-                val foregroundView: View = (viewHolder as LocationViewHolder).itemView.locationConstraint
-                getDefaultUIUtil().onDrawOver(c, recyclerView, foregroundView, dX, dY, actionState, isCurrentlyActive)
-            }
-
         }
         val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallBack)
         itemTouchHelper.attachToRecyclerView(recyclerView)

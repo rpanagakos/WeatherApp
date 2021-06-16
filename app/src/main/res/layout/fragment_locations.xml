@@ -86,12 +86,13 @@
             android:layout_height="0dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
+            android:paddingBottom="24dp"
             android:layout_marginEnd="16dp"
             android:visibility="@{noLocations ?  View.GONE : View.VISIBLE}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toTopOf="@+id/hint"
             app:layout_constraintTop_toBottomOf="@+id/searchButtom"
-            app:shimmer_recycler_item_count="1"
+            app:shimmer_recycler_item_count="5"
             app:shimmer_recycler_layout="@layout/placeholder_days_layout"
             tools:itemCount="1"
             tools:listitem="@layout/holder_location_item" />
@@ -105,8 +106,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/searchEditText"
-            app:lottie_fileName="location-pin.json"
-            app:lottie_repeatCount="2" />
+            app:lottie_fileName="location-pin.json" />
 
         <TextView
             android:id="@+id/newLocationText"

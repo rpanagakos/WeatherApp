@@ -14,4 +14,5 @@
     <string name="searching">Searching</string>
     <string name="wrong_location">The location wasn\'t correct</string>
     <string name="hint_swipe_left_to_remove_location">Hint: Swipe left to remove location</string>
+    <string name="delete">Delete</string>
 </resources>
