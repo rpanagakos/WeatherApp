@@ -17,4 +17,7 @@ interface LocationsDao {
 
     @Delete
     suspend fun deleteLocation(locationsEntity: LocationsEntity)
+
+    @Query("SELECT * FROM locations_table WHERE location LIKE :searchQuery")
+    suspend fun searchDatabase(searchQuery: String): MutableList<LocationsEntity>
 }

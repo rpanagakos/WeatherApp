@@ -40,6 +40,7 @@ class LandingFragment : AbstractFragment() {
         }
 
         binding.addButton.setSafeOnClickListener {
+            viewModel.searchingLocations.value?.clear()
             findNavController().navigate(R.id.action_landingFragment_to_locationsFragment)
         }
     }
@@ -49,7 +50,7 @@ class LandingFragment : AbstractFragment() {
             binding.weather = it
             when {
                 !it.weather.isNullOrEmpty() -> {
-                    when{
+                    when {
                         !args.newLocation.equals("empty") -> viewModel.insertLocation(it.request[0].query) {}
                     }
                     adapter.submitList(it.weather[0].hourly)
@@ -75,11 +76,13 @@ class LandingFragment : AbstractFragment() {
 
     override fun onResume() {
         super.onResume()
+        viewModel.searchingLocations.removeObservers(requireActivity())
         when {
             !args.newLocation.equals("empty") -> viewModel.latestLocation.value = args.newLocation
-            else -> viewModel.getLatestLocation()
+            else -> {
+                viewModel.getLatestLocation()
+            }
         }
     }
-
 
 }

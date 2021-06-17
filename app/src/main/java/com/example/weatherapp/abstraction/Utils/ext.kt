@@ -6,10 +6,21 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.core.view.postDelayed
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.callbackFlow
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
+
+
+@ExperimentalCoroutinesApi
+fun EditText.searchQuery() = callbackFlow<Unit> {
+    doAfterTextChanged { offer(Unit) }
+    awaitClose()
+}
 
 fun View.setSafeOnClickListener(onSafeClick: (View) -> Unit) {
     val safeClickListener = SafeClickListener {

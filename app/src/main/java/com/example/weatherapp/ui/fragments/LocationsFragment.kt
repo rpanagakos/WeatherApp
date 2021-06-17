@@ -6,12 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherapp.abstraction.AbstractFragment
 import com.example.weatherapp.abstraction.LocalModel
 import com.example.weatherapp.abstraction.Utils.hideKeyboard
+import com.example.weatherapp.abstraction.Utils.searchQuery
 import com.example.weatherapp.abstraction.Utils.setSafeOnClickListener
 import com.example.weatherapp.abstraction.Utils.showKeyboard
 import com.example.weatherapp.database.LocationsEntity
@@ -19,16 +21,23 @@ import com.example.weatherapp.databinding.FragmentLocationsBinding
 import com.example.weatherapp.ui.recyclerview.SwipeToDelete
 import com.example.weatherapp.ui.recyclerview.WeatherAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 
 @AndroidEntryPoint
 class LocationsFragment : AbstractFragment() {
 
+
     lateinit var binding: FragmentLocationsBinding
+
     private val adapter: WeatherAdapter = WeatherAdapter() {
         (it as LocationsEntity).apply {
             binding.searchEditText.setText(this.location)
-            navigateToLanding()
+            navigateToLanding(this.location)
         }
     }
 
@@ -42,6 +51,8 @@ class LocationsFragment : AbstractFragment() {
         return binding.root
     }
 
+    @FlowPreview
+    @ExperimentalCoroutinesApi
     override fun initLayout() {
         binding.locationsRecycler.adapter = adapter
         swipeToDelete(binding.locationsRecycler)
@@ -52,18 +63,36 @@ class LocationsFragment : AbstractFragment() {
         }
 
         binding.searchButtom.setSafeOnClickListener {
-            navigateToLanding()
+            navigateToLanding(binding.searchEditText.text.toString())
         }
 
         binding.animation.setSafeOnClickListener {
             binding.animation.playAnimation()
         }
 
-        binding.searchEditText.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                navigateToLanding()
+        binding.searchEditText.apply {
+            setOnEditorActionListener { _, actionId, _ ->
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    navigateToLanding(binding.searchEditText.text.toString())
+                }
+                true
             }
-            true
+
+            searchQuery()
+                .debounce(600)
+                .onEach {
+                    when (binding.searchEditText.text.isNullOrEmpty()) {
+                        false -> {
+                            binding.searchEditText.text?.let {
+                                viewModel.searchDatabase("%${binding.searchEditText.text.toString()}%")
+                            }
+                        }
+                        else -> {
+                            adapter.submitList(viewModel.locations.value as List<LocalModel>?)
+                        }
+                    }
+                }
+                .launchIn(lifecycleScope)
         }
     }
 
@@ -80,19 +109,27 @@ class LocationsFragment : AbstractFragment() {
                 }
             }
         })
+
+        viewModel.searchingLocations.observe(viewLifecycleOwner, Observer {
+            when {
+                it.size > 0 -> {
+                    adapter.submitList(it as List<LocalModel>?)
+                }
+            }
+        })
     }
 
     override fun stopOperations() {
     }
 
-    private fun navigateToLanding() {
+    private fun navigateToLanding(area: String = "") {
         when {
-            !binding.searchEditText.text.isNullOrEmpty() -> {
+            !area.isEmpty() -> {
                 if (binding.noLocations == true) binding.animation.cancelAnimation()
                 hideKeyboard()
                 findNavController().navigate(
                     LocationsFragmentDirections.actionLocationsFragmentToLandingFragment(
-                        binding.searchEditText.text.toString()
+                        area
                     )
                 )
             }

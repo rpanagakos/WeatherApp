@@ -8,10 +8,10 @@ class LocalDataSource @Inject constructor(
 ) {
 
     fun readLocations(): Flow<MutableList<LocationsEntity>> {
-       return locationsDao.readLocations()
+        return locationsDao.readLocations()
     }
 
-    suspend fun insertLocation(locationsEntity: LocationsEntity){
+    suspend fun insertLocation(locationsEntity: LocationsEntity) {
         locationsDao.insertLocation(locationsEntity)
     }
 
@@ -19,7 +19,11 @@ class LocalDataSource @Inject constructor(
         return locationsDao.getLatestLocation()
     }
 
-    suspend fun deleteLocation(locationsEntity: LocationsEntity){
+    suspend fun deleteLocation(locationsEntity: LocationsEntity) {
         return locationsDao.deleteLocation(locationsEntity)
+    }
+
+    suspend fun searchDatabase(searchQuery: String): MutableList<LocationsEntity> {
+        return locationsDao.searchDatabase(searchQuery)
     }
 }

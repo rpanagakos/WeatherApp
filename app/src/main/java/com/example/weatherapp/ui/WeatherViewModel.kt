@@ -26,7 +26,8 @@ class WeatherViewModel @Inject constructor(
     val internetConnection = SingleLiveEvent<Boolean>()
     val weatherResponse = SingleLiveEvent<WeatherResponse>()
     val weatherNextWeek = SingleLiveEvent<WeatherResponse>()
-    val locations: LiveData<MutableList<LocationsEntity>> = localDataSource.readLocations().asLiveData()
+    var locations: LiveData<MutableList<LocationsEntity>> = localDataSource.readLocations().asLiveData()
+    var searchingLocations = SingleLiveEvent<MutableList<LocationsEntity>>()
     val dayDetails = SingleLiveEvent<WeatherResponse>()
 
     //Room database
@@ -46,7 +47,11 @@ class WeatherViewModel @Inject constructor(
 
     fun deleteLocation(locationsEntity: LocationsEntity) {
         viewModelScope.launch(Dispatchers.Default) {
-            localDataSource.deleteLocation(locationsEntity)
+            kotlin.runCatching {
+                localDataSource.deleteLocation(locationsEntity)
+            }.onFailure {
+                handleFailures(it)
+            }
         }
     }
 
@@ -64,17 +69,19 @@ class WeatherViewModel @Inject constructor(
         }
     }
 
-    /*fun getAllLocations(){
-        viewModelScope.launch(Dispatchers.Default){
+    fun searchDatabase(location: String) {
+        viewModelScope.launch(Dispatchers.Default) {
             kotlin.runCatching {
-                localDataSource.readLocations()
-            }.onSuccess {
-                locations.postValue(it)
+                localDataSource.searchDatabase(location)
             }.onFailure {
                 handleFailures(it)
+            }.onSuccess {
+                searchingLocations.postValue(it)
             }
         }
-    }*/
+    }
+
+
 
     //Api calls
     fun getCurrentWeather() {
