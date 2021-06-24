@@ -54,6 +54,7 @@ class LocationsFragment : AbstractFragment() {
     @FlowPreview
     @ExperimentalCoroutinesApi
     override fun initLayout() {
+        binding.locationsRecycler.setHasFixedSize(true)
         binding.locationsRecycler.adapter = adapter
         swipeToDelete(binding.locationsRecycler)
         binding.searchEditText.showKeyboard()

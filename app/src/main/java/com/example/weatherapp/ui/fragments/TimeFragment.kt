@@ -12,8 +12,9 @@ import com.example.weatherapp.abstraction.LocalModel
 import com.example.weatherapp.databinding.FragmentTimeBinding
 import com.example.weatherapp.ui.TimezoneViewModel
 import com.example.weatherapp.ui.recyclerview.adapters.TimezoneAdapter
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class TimeFragment : AbstractFragment() {
 
     lateinit var timeViewModel: TimezoneViewModel
@@ -37,14 +38,16 @@ class TimeFragment : AbstractFragment() {
     }
 
     override fun initLayout() {
+        binding.timeRecyclerview.setHasFixedSize(true)
         binding.timeRecyclerview.adapter = adapter
+        binding.timeRecyclerview.showShimmer()
     }
 
     override fun observeViewModel() {
-        timeViewModel.timeLocations.observe(viewLifecycleOwner, Observer {
+        viewModel.locations.observe(viewLifecycleOwner, Observer {
             when {
                 it.size > 0 -> {
-                    timeViewModel.getTimezoneLocations()
+                    timeViewModel.getTimezoneLocations(it)
                 }
             }
         })
@@ -53,6 +56,7 @@ class TimeFragment : AbstractFragment() {
             when {
                 it.size > 0 -> {
                     adapter.submitList(it as List<LocalModel>?)
+                    binding.timeRecyclerview.hideShimmer()
                 }
             }
         })

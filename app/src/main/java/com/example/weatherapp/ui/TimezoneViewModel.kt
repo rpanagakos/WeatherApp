@@ -29,11 +29,11 @@ class TimezoneViewModel  @Inject constructor(
     val timeZoneList = SingleLiveEvent<MutableList<TimeZone>>()
     val internetConnection = SingleLiveEvent<Boolean>()
 
-    fun getTimezoneLocations(){
+    fun getTimezoneLocations(locations :  MutableList<LocationsEntity>){
         viewModelScope.launch(Dispatchers.Default) {
            val initLocation = mutableListOf<TimeZone>()
             coroutineScope {
-                timeLocations.value?.forEach { city ->
+                locations.forEach { city ->
                     launch {
                         kotlin.runCatching {
                             timezoneRemoteRepository.getTimezone(city.location)
