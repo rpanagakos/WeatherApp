@@ -80,4 +80,9 @@
             android:name="date"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/timeFragment"
+        android:name="com.example.weatherapp.ui.fragments.TimeFragment"
+        android:label="fragment_time"
+        tools:layout="@layout/fragment_time" />
 </navigation>

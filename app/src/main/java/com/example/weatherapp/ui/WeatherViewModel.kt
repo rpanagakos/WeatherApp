@@ -26,9 +26,12 @@ class WeatherViewModel @Inject constructor(
     val internetConnection = SingleLiveEvent<Boolean>()
     val weatherResponse = SingleLiveEvent<WeatherResponse>()
     val weatherNextWeek = SingleLiveEvent<WeatherResponse>()
-    var locations: LiveData<MutableList<LocationsEntity>> = localDataSource.readLocations().asLiveData()
+    var locations: LiveData<MutableList<LocationsEntity>> =
+        localDataSource.readLocations().asLiveData()
     var searchingLocations = SingleLiveEvent<MutableList<LocationsEntity>>()
     val dayDetails = SingleLiveEvent<WeatherResponse>()
+    val noLocation = SingleLiveEvent<Boolean>()
+
 
     //Room database
 
@@ -62,8 +65,12 @@ class WeatherViewModel @Inject constructor(
             }.onFailure {
                 handleFailures(it)
             }.onSuccess {
-                it?.let {
-                    latestLocation.postValue(it.location)
+                when (it) {
+                    null -> noLocation.postValue(true)
+                    else -> {
+                        noLocation.postValue(false)
+                        latestLocation.postValue(it.location)
+                    }
                 }
             }
         }
@@ -80,7 +87,6 @@ class WeatherViewModel @Inject constructor(
             }
         }
     }
-
 
 
     //Api calls

@@ -76,7 +76,6 @@ class LandingFragment : AbstractFragment() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.searchingLocations.removeObservers(requireActivity())
         when {
             !args.newLocation.equals("empty") -> viewModel.latestLocation.value = args.newLocation
             else -> {

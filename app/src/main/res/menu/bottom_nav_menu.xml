@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/landingFragment"
+        android:title=""
+        android:icon="@drawable/home_selector"/>
+
+    <item android:id="@+id/timeFragment"
+        android:title=""
+        android:icon="@drawable/time_selector"/>
+
+</menu>
