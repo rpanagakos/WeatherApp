@@ -12,11 +12,12 @@ import com.example.weatherapp.ui.fragments.DayDetailsFragment
 import com.example.weatherapp.ui.fragments.LocationsFragment
 import com.example.weatherapp.ui.fragments.LocationsFragmentDirections
 import com.example.weatherapp.ui.fragments.NextDaysFragment
+import com.example.weatherapp.ui.listeners.BottomNavListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 
 @AndroidEntryPoint
-class MainActivity : AbstractActivity(R.layout.activity_main) {
+class MainActivity : AbstractActivity(R.layout.activity_main), BottomNavListener {
 
     private lateinit var navController: NavController
 
@@ -72,6 +73,9 @@ class MainActivity : AbstractActivity(R.layout.activity_main) {
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()
+    }
+
+    override fun motion(up: Boolean) {
     }
 
 }

@@ -7,10 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.RecyclerView
+import com.example.weatherapp.MainActivity
 import com.example.weatherapp.abstraction.AbstractFragment
 import com.example.weatherapp.abstraction.LocalModel
 import com.example.weatherapp.databinding.FragmentTimeBinding
 import com.example.weatherapp.ui.TimezoneViewModel
+import com.example.weatherapp.ui.listeners.BottomNavListener
 import com.example.weatherapp.ui.recyclerview.adapters.TimezoneAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -19,12 +22,15 @@ class TimeFragment : AbstractFragment() {
 
     lateinit var timeViewModel: TimezoneViewModel
     lateinit var binding: FragmentTimeBinding
+    private var listener :  BottomNavListener? = null
 
     private val adapter : TimezoneAdapter = TimezoneAdapter()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+        listener = (requireActivity() as MainActivity)
         timeViewModel = ViewModelProvider(requireActivity()).get(TimezoneViewModel::class.java)
+        listener = (requireActivity() as MainActivity)
     }
 
     override fun onCreateView(
@@ -41,6 +47,16 @@ class TimeFragment : AbstractFragment() {
         binding.timeRecyclerview.setHasFixedSize(true)
         binding.timeRecyclerview.adapter = adapter
         binding.timeRecyclerview.showShimmer()
+
+        binding.timeRecyclerview.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                when{
+                    dy > 0 -> {listener?.motion(true)}
+                    else -> { listener?.motion(false) }
+                }
+            }
+        })
     }
 
     override fun observeViewModel() {
@@ -63,6 +79,7 @@ class TimeFragment : AbstractFragment() {
     }
 
     override fun stopOperations() {
+        listener = null
     }
 
 }
