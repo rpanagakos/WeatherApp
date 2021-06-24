@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.weatherapp.abstraction.AbstractFragment
 import com.example.weatherapp.abstraction.Utils.dateToDayNameEEEE
 import com.example.weatherapp.databinding.FragmentDayDetailsBinding
-import com.example.weatherapp.ui.recyclerview.DetailsAdapter
+import com.example.weatherapp.ui.recyclerview.adapters.DetailsAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope

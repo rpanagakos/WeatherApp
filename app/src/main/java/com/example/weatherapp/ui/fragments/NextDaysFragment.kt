@@ -10,7 +10,7 @@ import com.example.weatherapp.abstraction.AbstractFragment
 import com.example.weatherapp.abstraction.Utils.setSafeOnClickListener
 import com.example.weatherapp.databinding.FragmentNextDaysBinding
 import com.example.weatherapp.models.weather.Weather
-import com.example.weatherapp.ui.recyclerview.WeatherAdapter
+import com.example.weatherapp.ui.recyclerview.adapters.WeatherAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope

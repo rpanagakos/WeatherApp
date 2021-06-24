@@ -1,4 +1,4 @@
-package com.example.weatherapp.ui.recyclerview
+package com.example.weatherapp.ui.recyclerview.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,15 +8,13 @@ import com.example.weatherapp.R
 import com.example.weatherapp.abstraction.DiffUtilClass
 import com.example.weatherapp.abstraction.EmptyHolder
 import com.example.weatherapp.abstraction.LocalModel
-import com.example.weatherapp.models.weather.Hourly
-import com.example.weatherapp.ui.recyclerview.holders.DetailsViewHolder
+import com.example.weatherapp.models.time.TimeZone
+import com.example.weatherapp.ui.recyclerview.holders.TimezoneViewHolder
 
-class DetailsAdapter() :
-    ListAdapter<LocalModel, RecyclerView.ViewHolder>(DiffUtilClass<LocalModel>()) {
-
+class TimezoneAdapter(): ListAdapter<LocalModel, RecyclerView.ViewHolder>(DiffUtilClass<LocalModel>()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
-        when (viewType) {
-            R.layout.holder_day_details_item -> DetailsViewHolder(
+        when(viewType){
+            R.layout.holder_time_item -> TimezoneViewHolder(
                 LayoutInflater.from(parent.context).inflate(viewType, parent, false)
             )
             else -> EmptyHolder(
@@ -24,13 +22,13 @@ class DetailsAdapter() :
             )
         }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) = when (holder) {
-        is DetailsViewHolder -> holder.present(getItem(position))
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) =  when(holder) {
+        is TimezoneViewHolder -> holder.present(getItem(position))
         else -> Unit
     }
 
-    override fun getItemViewType(position: Int) = when (getItem(position)) {
-        is Hourly -> R.layout.holder_day_details_item
-        else -> R.layout.holder_day_details_item
+    override fun getItemViewType(position: Int) =  when (getItem(position)) {
+        is TimeZone -> R.layout.holder_time_item
+        else -> R.layout.holder_time_item
     }
 }

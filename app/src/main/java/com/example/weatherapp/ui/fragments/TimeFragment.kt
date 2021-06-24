@@ -7,14 +7,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.weatherapp.R
 import com.example.weatherapp.abstraction.AbstractFragment
+import com.example.weatherapp.abstraction.LocalModel
+import com.example.weatherapp.databinding.FragmentTimeBinding
 import com.example.weatherapp.ui.TimezoneViewModel
+import com.example.weatherapp.ui.recyclerview.adapters.TimezoneAdapter
 
 
 class TimeFragment : AbstractFragment() {
 
     lateinit var timeViewModel: TimezoneViewModel
+    lateinit var binding: FragmentTimeBinding
+
+    private val adapter : TimezoneAdapter = TimezoneAdapter()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -26,11 +31,13 @@ class TimeFragment : AbstractFragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_time, container, false)
+        binding = FragmentTimeBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = this
+        return binding.root
     }
 
     override fun initLayout() {
-
+        binding.timeRecyclerview.adapter = adapter
     }
 
     override fun observeViewModel() {
@@ -45,6 +52,7 @@ class TimeFragment : AbstractFragment() {
         timeViewModel.timeZoneList.observe(viewLifecycleOwner, Observer {
             when {
                 it.size > 0 -> {
+                    adapter.submitList(it as List<LocalModel>?)
                 }
             }
         })

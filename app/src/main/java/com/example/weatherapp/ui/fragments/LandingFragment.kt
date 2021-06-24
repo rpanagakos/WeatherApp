@@ -11,7 +11,7 @@ import com.example.weatherapp.R
 import com.example.weatherapp.abstraction.AbstractFragment
 import com.example.weatherapp.abstraction.Utils.setSafeOnClickListener
 import com.example.weatherapp.databinding.FragmentLandingBinding
-import com.example.weatherapp.ui.recyclerview.WeatherAdapter
+import com.example.weatherapp.ui.recyclerview.adapters.WeatherAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 

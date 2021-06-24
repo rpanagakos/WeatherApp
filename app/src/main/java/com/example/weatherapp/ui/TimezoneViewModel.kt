@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.weatherapp.abstraction.SingleLiveEvent
 import com.example.weatherapp.database.LocalDataSource
 import com.example.weatherapp.database.LocationsEntity
-import com.example.weatherapp.models.time.TimeResponse
+import com.example.weatherapp.models.time.TimeZone
 import com.example.weatherapp.network.time.TimezoneRemoteRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -26,12 +26,12 @@ class TimezoneViewModel  @Inject constructor(
 
     var timeLocations: LiveData<MutableList<LocationsEntity>> =
         localDataSource.readLocations().asLiveData()
-    val timeZoneList = SingleLiveEvent<MutableList<TimeResponse>>()
+    val timeZoneList = SingleLiveEvent<MutableList<TimeZone>>()
     val internetConnection = SingleLiveEvent<Boolean>()
 
     fun getTimezoneLocations(){
         viewModelScope.launch(Dispatchers.Default) {
-           val initLocation = mutableListOf<TimeResponse>()
+           val initLocation = mutableListOf<TimeZone>()
             coroutineScope {
                 timeLocations.value?.forEach { city ->
                     launch {
@@ -45,7 +45,7 @@ class TimezoneViewModel  @Inject constructor(
                                 it.isSuccessful -> {
                                     it.body()?.let {
                                         it.data?.let {
-                                            initLocation.add(it)
+                                            initLocation.add(it.time_zone[0])
                                         }
                                     }
                                 }

@@ -24,8 +24,8 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:shimmer_recycler_item_count="5"
             app:shimmer_recycler_layout="@layout/placeholder_days_layout"
-            tools:itemCount="1"
-            tools:listitem="@layout/holder_location_item" />
+            tools:itemCount="6"
+            tools:listitem="@layout/holder_time_item" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

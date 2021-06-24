@@ -19,7 +19,7 @@ import com.example.weatherapp.abstraction.Utils.showKeyboard
 import com.example.weatherapp.database.LocationsEntity
 import com.example.weatherapp.databinding.FragmentLocationsBinding
 import com.example.weatherapp.ui.recyclerview.SwipeToDelete
-import com.example.weatherapp.ui.recyclerview.WeatherAdapter
+import com.example.weatherapp.ui.recyclerview.adapters.WeatherAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
