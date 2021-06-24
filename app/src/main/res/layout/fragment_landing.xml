@@ -13,7 +13,7 @@
 
         <variable
             name="weather"
-            type="com.example.weatherapp.models.WeatherResponse" />
+            type="com.example.weatherapp.models.weather.WeatherResponse" />
 
     </data>
 

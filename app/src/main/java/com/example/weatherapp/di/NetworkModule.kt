@@ -1,13 +1,12 @@
 package com.example.weatherapp.di
 
-import com.example.weatherapp.BuildConfig
 import com.example.weatherapp.network.ConstantsApi.Companion.API_KEY
 import com.example.weatherapp.network.ConstantsApi.Companion.BASE_URL
-import com.example.weatherapp.network.WeatherApi
+import com.example.weatherapp.network.time.TimezoneApi
+import com.example.weatherapp.network.weather.WeatherApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -81,5 +80,11 @@ object NetworkModule {
     @Provides
     fun provideApiService(retrofit: Retrofit): WeatherApi {
         return retrofit.create(WeatherApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideTimeApiService(retrofit: Retrofit): TimezoneApi {
+        return retrofit.create(TimezoneApi::class.java)
     }
 }

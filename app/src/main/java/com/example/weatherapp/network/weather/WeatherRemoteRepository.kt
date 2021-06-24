@@ -1,7 +1,7 @@
-package com.example.weatherapp.network
+package com.example.weatherapp.network.weather
 
 import com.example.weatherapp.models.GenericResponse
-import com.example.weatherapp.models.WeatherResponse
+import com.example.weatherapp.models.weather.WeatherResponse
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import retrofit2.Response
 

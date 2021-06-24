@@ -7,8 +7,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.weatherapp.abstraction.SingleLiveEvent
 import com.example.weatherapp.database.LocalDataSource
 import com.example.weatherapp.database.LocationsEntity
-import com.example.weatherapp.models.WeatherResponse
-import com.example.weatherapp.network.WeatherRemoteRepository
+import com.example.weatherapp.models.weather.WeatherResponse
+import com.example.weatherapp.network.weather.WeatherRemoteRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

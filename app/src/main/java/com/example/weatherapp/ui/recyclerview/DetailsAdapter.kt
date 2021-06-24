@@ -8,7 +8,7 @@ import com.example.weatherapp.R
 import com.example.weatherapp.abstraction.DiffUtilClass
 import com.example.weatherapp.abstraction.EmptyHolder
 import com.example.weatherapp.abstraction.LocalModel
-import com.example.weatherapp.models.Hourly
+import com.example.weatherapp.models.weather.Hourly
 import com.example.weatherapp.ui.recyclerview.holders.DetailsViewHolder
 
 class DetailsAdapter() :

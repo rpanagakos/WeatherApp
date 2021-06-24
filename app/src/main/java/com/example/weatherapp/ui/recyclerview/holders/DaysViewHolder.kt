@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherapp.abstraction.LocalModel
 import com.example.weatherapp.abstraction.Utils.dateToDayNameEEEE
 import com.example.weatherapp.abstraction.Utils.setSafeOnClickListener
-import com.example.weatherapp.models.Weather
+import com.example.weatherapp.models.weather.Weather
 import com.example.weatherapp.ui.WeatherBinding.loadImageFromUrl
 import kotlinx.android.synthetic.main.holder_days_item.view.*
 

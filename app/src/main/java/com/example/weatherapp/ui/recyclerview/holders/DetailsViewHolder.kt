@@ -4,7 +4,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherapp.abstraction.LocalModel
 import com.example.weatherapp.abstraction.Utils.getHourlyTime
-import com.example.weatherapp.models.Hourly
+import com.example.weatherapp.models.weather.Hourly
 import com.example.weatherapp.ui.WeatherBinding.loadImageFromUrl
 import kotlinx.android.synthetic.main.holder_day_details_item.view.*
 

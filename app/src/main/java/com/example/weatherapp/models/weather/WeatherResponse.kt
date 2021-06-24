@@ -1,6 +1,7 @@
-package com.example.weatherapp.models
+package com.example.weatherapp.models.weather
 
 import com.example.weatherapp.abstraction.LocalModel
+import com.example.weatherapp.models.Request
 import com.google.gson.annotations.SerializedName
 
 data class WeatherResponse(
