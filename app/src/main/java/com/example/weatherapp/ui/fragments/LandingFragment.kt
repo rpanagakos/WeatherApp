@@ -1,5 +1,8 @@
 package com.example.weatherapp.ui.fragments
 
+import android.appwidget.AppWidgetManager
+import android.content.ComponentName
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +15,7 @@ import com.example.weatherapp.abstraction.AbstractFragment
 import com.example.weatherapp.abstraction.Utils.setSafeOnClickListener
 import com.example.weatherapp.databinding.FragmentLandingBinding
 import com.example.weatherapp.ui.recyclerview.adapters.WeatherAdapter
+import com.example.weatherapp.ui.widget.WeatherAppWidget
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -47,6 +51,12 @@ class LandingFragment : AbstractFragment() {
 
     override fun observeViewModel() {
         viewModel.weatherResponse.observe(viewLifecycleOwner, Observer {
+            val intent = Intent(requireActivity(), WeatherAppWidget::class.java)
+            intent.action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
+            val ids = AppWidgetManager.getInstance(requireContext()).getAppWidgetIds(ComponentName(requireContext(),WeatherAppWidget::class.java))
+            intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
+            requireActivity().sendBroadcast(intent)
+
             binding.weather = it
             when {
                 !it.weather.isNullOrEmpty() -> {
