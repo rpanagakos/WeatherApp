@@ -20,5 +20,9 @@
     <color name="oxford_blue">#0F0D30</color>
     <color name="azure">#007FFF</color>
     <color name="russian_violet">#060720</color>
+    <color name="light_blue_50">#FFE1F5FE</color>
+    <color name="light_blue_200">#FF81D4FA</color>
+    <color name="light_blue_600">#FF039BE5</color>
+    <color name="light_blue_900">#FF01579B</color>
 
 </resources>

@@ -17,4 +17,6 @@
     <string name="delete">Delete</string>
     <string name="home">Home</string>
     <string name="time">Time</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 </resources>
